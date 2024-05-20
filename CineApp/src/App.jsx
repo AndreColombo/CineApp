@@ -1,10 +1,13 @@
 import Header from "./Components/Header";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  return;
-  <>
-    <Header></Header>
-  </>;
+  return (
+    <>
+      <Header />
+      <Outlet />
+    </>
+  );
 }
 
 export default App;
