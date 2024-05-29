@@ -1,3 +1,8 @@
 export default function Filmes() {
-  return (<h1>Filmes</h1>);
+  console.log(data);
+  return (
+    <>
+      <h1>Filmes</h1>
+    </>
+  );
 }
