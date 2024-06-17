@@ -5,6 +5,7 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home.jsx";
 import Filmes from "./Pages/Filmes.jsx";
+import DetalhesFilme from "./Pages/DetalhesFilmes.jsx";
 import Sobre from "./Pages/Sobre.jsx";
 import Contato from "./Pages/Contato.jsx";
 import PageNotFound from "./Pages/PageNotFound.jsx";
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "filmes", element: <Filmes /> },
+      { path: "filmes/:id", element: <DetalhesFilme /> },
       { path: "sobre", element: <Sobre /> },
       { path: "contato", element: <Contato /> },
       { path: "*", element: <PageNotFound /> },

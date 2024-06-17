@@ -7,7 +7,7 @@ export default function Home() {
         <div className="card" key={index}>
           <h1 key={filme.title}>{filme.title}</h1>
           {filme.image ? (
-            <img className="w-[300]" src={filme.image} />
+            <img className="h-96" src={filme.image} />
           ) : (
             <h1 className="text-4x1">Não tem imagem</h1>
           )}
