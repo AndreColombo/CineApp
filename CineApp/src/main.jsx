@@ -1,32 +1,32 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Pages/Home.jsx";
 import Filmes from "./Pages/Filmes.jsx";
 import DetalhesFilme from "./Pages/DetalhesFilmes.jsx";
+import Noticias from "./Pages/Noticias.jsx";
+import Noticia from "./Pages/Noticia.jsx";
 import Sobre from "./Pages/Sobre.jsx";
-import Contato from "./Pages/Contato.jsx";
+import Pesquisa from "./Pages/Pesquisa.jsx";
 import PageNotFound from "./Pages/PageNotFound.jsx";
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: "filmes", element: <Filmes /> },
-      { path: "filmes/:id", element: <DetalhesFilme /> },
-      { path: "sobre", element: <Sobre /> },
-      { path: "contato", element: <Contato /> },
-      { path: "*", element: <PageNotFound /> },
-    ],
-  },
-]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<Home />} />
+          <Route path="filmes" element={<Filmes />} />
+          <Route path="filmes/:id" element={<DetalhesFilme />} />
+          <Route path="noticias" element={<Noticias />} />
+          <Route path="noticia" element={<Noticia />} />
+          <Route path="sobre" element={<Sobre />} />
+          <Route path="pesquisa" element={<Pesquisa />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
