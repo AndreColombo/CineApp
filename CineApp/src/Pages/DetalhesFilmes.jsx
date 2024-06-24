@@ -33,6 +33,10 @@ export default function DetalhesFilme() {
     revenue: 0,
     genres: [],
   });
+  const [credits, setCredits] = useState({
+    cast: [],
+    crew: [],
+  });
 
   const getMovie = async (url) => {
     const res = await fetch(url);
@@ -41,10 +45,18 @@ export default function DetalhesFilme() {
     setFilme(data);
   };
 
+  const getCredits = async (url) => {
+    const res = await fetch(url);
+    const data = await res.json();
+    setCredits(data);
+  };
+
   useEffect(() => {
     const movieUrl = `${moviesURL}${id}?${apiKey}`;
+    const creditsUrl = `${moviesURL}${id}/credits?${apiKey}`;
     getMovie(movieUrl);
-  }, []);
+    getCredits(creditsUrl);
+  }, [id]);
 
   return (
     <>
@@ -144,34 +156,39 @@ export default function DetalhesFilme() {
         </div>
 
         <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly">
-          <div className="pb-3">
-            <h1 className="font-semibold">Título original</h1>
-            <p className="pl-1">{filme.original_title}</p>
-          </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Situação</h1>
-            <p className="pl-1">{filme.status}</p>
-          </div>
-          <div className="pb-3">
-            <h1 className="font-semibold w-28">Idioma original</h1>
-            <p className="pl-1">{filme.original_language}</p>
-          </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Orçamento</h1>
+          <div className="pb-3 flex flex-col w-64">
+            <h1 className="font-semibold">Produtora</h1>
             <p className="pl-1">
-              {filme.budget.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
+              {filme.production_companies
+                ?.map((company) => company.name)
+                .join(", ") || "N/A"}
             </p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Receita</h1>
+          <div className="pb-3 flex flex-col w-64">
+            <h1 className="font-semibold">Diretor</h1>
             <p className="pl-1">
-              {filme.revenue.toLocaleString("en-US", {
-                style: "currency",
-                currency: "USD",
-              })}
+              {credits.crew
+                ?.filter((member) => member.job === "Director")
+                .map((director) => director.name)
+                .join(", ") || "N/A"}
+            </p>
+          </div>
+          <div className="pb-3 flex flex-col w-64">
+            <h1 className="font-semibold">Roteirista</h1>
+            <p className="pl-1">
+              {credits.crew
+                ?.filter((member) => member.job === "Screenplay")
+                .map((screenplay) => screenplay.name)
+                .join(", ") || "N/A"}
+            </p>
+          </div>
+          <div className="pb-3 flex flex-col w-64">
+            <h1 className="font-semibold">Autor do Livro</h1>
+            <p className="pl-1">
+              {credits.crew
+                ?.filter((member) => member.job === "Novel")
+                .map((novel) => novel.name)
+                .join(", ") || "N/A"}
             </p>
           </div>
         </div>

@@ -39,7 +39,7 @@ export default function Pesquisa() {
           filmes.map((filme) => (
             <Link
               key={filme.id}
-              to={`${filme.id}`}
+              to={`/filmes/${filme.id}`}
               className="relative text-white p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
               style={{
                 backgroundImage: `url(${imagesURL}${filme.poster_path})`,

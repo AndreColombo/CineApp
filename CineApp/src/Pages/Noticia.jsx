@@ -1,7 +1,7 @@
 export default function Noticia() {
   return (
     <>
-      <h1></h1>
+      <h1>Notícia</h1>
     </>
   );
 }

@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <>
       <h1 className="text-white pl-14 font-bold text-xl mt-4">Nos Cinemas</h1>
-      <div className="overflow-x-auto hide-scrollbar p-5 pb-0">
+      <div className="overflow-x-auto custom-scrollbar p-5 pb-0">
         <div className="flex space-x-5">
           {nowPlaying.map((nowPlaying) => (
             <div className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg">
@@ -94,7 +94,7 @@ export default function Home() {
       <h1 className="text-white pl-14 font-bold text-xl mt-4">
         Próximas Estreias
       </h1>
-      <div className="overflow-x-auto hide-scrollbar p-5">
+      <div className="overflow-x-auto custom-scrollbar p-5">
         <div className="flex space-x-5">
           {upcoming.map((upcoming) => (
             <div className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg">
