@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+// Criando consts para facilitar o acesso á dados necessários
 const imagesURL = import.meta.env.VITE_IMG;
 const moviesURL = import.meta.env.VITE_API;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -36,11 +37,13 @@ export default function Home() {
   };
 
   useEffect(() => {
+    // Colocando a url da API em uma const para fácil acesso
     const nowplayingUrl = `${moviesURL}now_playing?${apiKey}`;
     getMovieNowPlaying(nowplayingUrl);
   }, []);
 
   useEffect(() => {
+    // Colocando a url da API em uma const para fácil acesso
     const upcomingUrl = `${moviesURL}upcoming?${apiKey}`;
     getMovieUpcoming(upcomingUrl);
   }, []);
@@ -48,8 +51,11 @@ export default function Home() {
   return (
     <>
       <h1 className="text-white pl-14 font-bold text-xl mt-4">Nos Cinemas</h1>
+
+      {/* --------------------- Scroll de filmes 1: Filmes Nos Cinemas --------------------- */}
       <div className="overflow-x-auto custom-scrollbar p-5 pb-0">
         <div className="flex space-x-5">
+          {/* Mapeando a API de filmes Now Playing */}
           {nowPlaying.map((nowPlaying) => (
             <div className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg">
               <Link to={`filmes/${nowPlaying.id}`} className="flex">
@@ -81,9 +87,12 @@ export default function Home() {
                         {nowPlaying.original_language}
                       </span>
                     </div>
-                    <span className="bg-B0 text-white text-opacity-75 font-medium p-1 rounded uppercase text-xs flex-shrink-0">
+                    <Link
+                      to={`ingresso`}
+                      className="bg-B0 text-white text-opacity-75 font-medium p-1 rounded uppercase text-xs flex-shrink-0"
+                    >
                       Comprar ingresso
-                    </span>
+                    </Link>
                   </div>
                 </div>
               </Link>
@@ -91,11 +100,16 @@ export default function Home() {
           ))}
         </div>
       </div>
+      {/* ---------------------------------------------------------------------------------- */}
+
       <h1 className="text-white pl-14 font-bold text-xl mt-4">
         Próximas Estreias
       </h1>
+
+      {/* --------------------- Scroll de filmes 2: Filmes Próximas Estreias --------------------- */}
       <div className="overflow-x-auto custom-scrollbar p-5">
         <div className="flex space-x-5">
+          {/* Mapeando a API de filmes Upcoming */}
           {upcoming.map((upcoming) => (
             <div className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg">
               <Link to={`filmes/${upcoming.id}`} className="flex">
@@ -134,6 +148,7 @@ export default function Home() {
           ))}
         </div>
       </div>
+      {/* ---------------------------------------------------------------------------------------- */}
     </>
   );
 }
