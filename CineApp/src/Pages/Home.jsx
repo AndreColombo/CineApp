@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 // Criando consts para facilitar o acesso á dados necessários
 const imagesURL = import.meta.env.VITE_IMG;
-const moviesURL = import.meta.env.VITE_API;
+const moviesURL = import.meta.env.VITE_APIM;
 const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function Home() {
@@ -57,8 +57,11 @@ export default function Home() {
         <div className="flex space-x-5">
           {/* Mapeando a API de filmes Now Playing */}
           {nowPlaying.map((nowPlaying) => (
-            <div className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg">
-              <Link to={`filmes/${nowPlaying.id}`} className="flex">
+            <div
+              key={nowPlaying.id}
+              className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
+            >
+              <Link to={`ingresso/${nowPlaying.id}`} className="flex">
                 <img
                   className=""
                   src={`${imagesURL}${nowPlaying.poster_path}`}
@@ -87,12 +90,9 @@ export default function Home() {
                         {nowPlaying.original_language}
                       </span>
                     </div>
-                    <Link
-                      to={`ingresso`}
-                      className="bg-B0 text-white text-opacity-75 font-medium p-1 rounded uppercase text-xs flex-shrink-0"
-                    >
+                    <span className="bg-B0 text-white text-opacity-75 font-medium p-1 rounded uppercase text-xs flex-shrink-0">
                       Comprar ingresso
-                    </Link>
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -111,7 +111,10 @@ export default function Home() {
         <div className="flex space-x-5">
           {/* Mapeando a API de filmes Upcoming */}
           {upcoming.map((upcoming) => (
-            <div className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg">
+            <div
+              key={upcoming.id}
+              className="bg-18 text-white flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
+            >
               <Link to={`filmes/${upcoming.id}`} className="flex">
                 <img
                   className=""

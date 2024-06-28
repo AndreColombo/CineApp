@@ -26,14 +26,16 @@ export default function Noticia() {
   return (
     <div className="text-white">
       <div className="flex p-5">
-        <div className="flex flex-col rounded-lg m-3 p-5 bg-18 w-3/4">
+        <div className="flex flex-col rounded-lg m-3 p-5 bg-18 w-7/12">
           <h1 className="font-bold text-xl line-clamp-2 mb-2">
             {noticia.title}
           </h1>
           <p className="text-white text-opacity-80 text-sm">{noticia.text}</p>
           <img className="rounded-lg w-full my-5" src={noticia.image} />
           {textoParagrafos.map((paragraph, index) => (
-            <p className="mb-3">{paragraph}</p>
+            <p key={index} className="mb-3">
+              {paragraph}
+            </p>
           ))}
           <div className="flex flex-row justify-between mt-3 text-white text-opacity-80">
             <p>{noticia.data}</p>
@@ -43,7 +45,10 @@ export default function Noticia() {
         <div className="flex flex-col rounded m-3 p-5 bg-18 w-3/12">
           <h1 className="font-bold text-lg">Leia Também:</h1>
           {data.map((noticia) => (
-            <div className="flex flex-col rounded mx-3 m-4 p-3 bg-26">
+            <div
+              key={noticia.id}
+              className="flex flex-col rounded mx-3 m-4 p-3 bg-26"
+            >
               <Link to={`/noticias/${noticia.id}`}>
                 <img className="rounded w-full" src={noticia.image} />
                 <h1 className="font-bold text-lg line-clamp-1 my-1">

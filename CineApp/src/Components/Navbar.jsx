@@ -11,6 +11,9 @@ export default function Navbar() {
           <Link to="filmes">Filmes</Link>
         </li>
         <li>
+          <Link to="series">Séries</Link>
+        </li>
+        <li>
           <Link to="noticias">Notícias</Link>
         </li>
         <li>

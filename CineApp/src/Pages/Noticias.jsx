@@ -9,7 +9,10 @@ export default function Noticias() {
 
         <div className="grid grid-cols-4 p-5">
           {data.map((noticia) => (
-            <div className="flex flex-col w-80 rounded m-5 p-3 bg-18 flex-grow">
+            <div
+              key={noticia.id}
+              className="flex flex-col w-80 rounded m-5 p-3 bg-18 flex-grow"
+            >
               <Link to={`${noticia.id}`} className="flex flex-col h-full">
                 <img className="rounded w-80" src={noticia.image} />
                 <h1 className="font-bold text-lg line-clamp-2 my-2">
