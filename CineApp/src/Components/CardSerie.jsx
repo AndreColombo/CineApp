@@ -39,7 +39,7 @@ export default function CardSerie() {
             <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none rounded-lg"></div>
             <div className="relative z-10 w-full">
               <h1 className="text-white font-bold pl-3 mb-2">{serie.name}</h1>
-              <p className="text-sm text-opacity-75 line-clamp-2 pl-3 pr-3">
+              <p className="text-white text-sm text-opacity-75 line-clamp-2 pl-3 pr-3">
                 {serie.overview}
               </p>
               <div className="infos flex justify-between p-3">

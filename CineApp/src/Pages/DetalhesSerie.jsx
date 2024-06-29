@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import CardElenco from "../Components/CardElenco";
 
 const imagesURL = import.meta.env.VITE_IMG;
 const backdropURL = import.meta.env.VITE_BKD;
@@ -124,8 +125,8 @@ export default function DetalhesSerie() {
             <p className="text-white text-opacity-75 my-2">{serie.tagline}</p>
 
             <div className="flex gap-1 flex-col">
-              <h1 className="font-medium text-lg">Sinopse:</h1>
-              <p className="">{serie.overview}</p>
+              <h1 className="font-medium text-lg">Sinopse</h1>
+              <p className="font-light">{serie.overview}</p>
             </div>
           </div>
         </div>
@@ -168,7 +169,7 @@ export default function DetalhesSerie() {
         </div>
       </div>
 
-      <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly">
+      <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly m-10 mt-0">
         <div className="pb-3 flex flex-col w-64">
           <h1 className="font-semibold">Produtora</h1>
           <p className="pl-1">
@@ -207,6 +208,7 @@ export default function DetalhesSerie() {
           </p>
         </div>
       </div>
+      {credits.cast.length > 0 && <CardElenco elenco={credits.cast} />}
     </div>
   );
 }

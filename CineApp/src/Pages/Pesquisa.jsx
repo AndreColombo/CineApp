@@ -27,8 +27,8 @@ export default function Pesquisa() {
   };
 
   useEffect(() => {
-    const searchWithQueryURLM = `${searchURLM}?${apiKey}&query=${query}&language=pt-BR`;
-    const searchWithQueryURLS = `${searchURLS}?${apiKey}&query=${query}&language=pt-BR`;
+    const searchWithQueryURLM = `${searchURLM}?${apiKey}&query=${query}`;
+    const searchWithQueryURLS = `${searchURLS}?${apiKey}&query=${query}`;
 
     Promise.all([
       getSearchedContent(searchWithQueryURLM),
@@ -54,7 +54,9 @@ export default function Pesquisa() {
           resultados.map((resultado) => (
             <Link
               key={resultado.id}
-              to={`/${resultado.media_type === "tv" ? "series" : "filmes"}/${resultado.id}`}
+              to={`/${resultado.media_type === "tv" ? "series" : "filmes"}/${
+                resultado.id
+              }`}
               className="relative text-white p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
               style={{
                 backgroundImage: `url(${imagesURL}${resultado.poster_path})`,

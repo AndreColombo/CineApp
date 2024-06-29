@@ -53,7 +53,7 @@ export default function Home() {
       <h1 className="text-white pl-14 font-bold text-xl mt-4">Nos Cinemas</h1>
 
       {/* --------------------- Scroll de filmes 1: Filmes Nos Cinemas --------------------- */}
-      <div className="overflow-x-auto custom-scrollbar p-5 pb-0">
+      <div className="overflow-x-auto custom-scrollbar p-5 pb-1">
         <div className="flex space-x-5">
           {/* Mapeando a API de filmes Now Playing */}
           {nowPlaying.map((nowPlaying) => (
@@ -107,7 +107,7 @@ export default function Home() {
       </h1>
 
       {/* --------------------- Scroll de filmes 2: Filmes Próximas Estreias --------------------- */}
-      <div className="overflow-x-auto custom-scrollbar p-5">
+      <div className="overflow-x-auto custom-scrollbar p-5 pb-1">
         <div className="flex space-x-5">
           {/* Mapeando a API de filmes Upcoming */}
           {upcoming.map((upcoming) => (
