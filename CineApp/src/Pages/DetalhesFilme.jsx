@@ -133,7 +133,7 @@ export default function DetalhesFilme() {
             <div
               className={`h-14 w-14 mt-2 rounded-full flex justify-center items-center bg-18 border-2 ${borderColorClass}`}
             >
-              <p className="font-semibold">{avaliacao}</p>
+              <p className="font-semibold">{String(avaliacao)}</p>
               <p className="font-light">%</p>
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function DetalhesFilme() {
 
       <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly m-10 mt-0">
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Produtora</h1>
+          <h1 className="font-semibold">Produtora(s)</h1>
           <p className="pl-1">
             {filme.production_companies
               ?.map((company) => company.name)
@@ -204,16 +204,16 @@ export default function DetalhesFilme() {
           <h1 className="font-semibold">Roteirista</h1>
           <p className="pl-1">
             {credits.crew
-              ?.filter((member) => member.job === "Screenplay")
+              ?.filter((member) => member.department === "Screenplay")
               .map((screenplay) => screenplay.name)
               .join(", ") || "N/A"}
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Autor do Livro</h1>
+          <h1 className="font-semibold">Escritor(es)</h1>
           <p className="pl-1">
             {credits.crew
-              ?.filter((member) => member.job === "Novel")
+              ?.filter((member) => member.department === "Writing")
               .map((novel) => novel.name)
               .join(", ") || "N/A"}
           </p>
