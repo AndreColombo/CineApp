@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
+const defaultImage = import.meta.env.VITE_DEFAULTIMGP;
 const imagesURL = import.meta.env.VITE_IMG;
 const pessoaURL = import.meta.env.VITE_API_PERSON;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -70,9 +71,13 @@ export default function Pessoa() {
 
   return (
     <div className="px-24 py-10 flex gap-5">
-      <div className="text-white bg-18 p-1 rounded-xl">
+      <div className="text-white bg-18 p-1 rounded-xl flex flex-col justify-center">
         <img
-          src={`${imagesURL}${pessoa.profile_path}`}
+          src={
+            pessoa.profile_path
+              ? `${imagesURL}${pessoa.profile_path}`
+              : defaultImage
+          }
           alt={pessoa.name}
           className="rounded-lg mb-5"
           style={{ height: "28rem" }}
@@ -105,14 +110,14 @@ export default function Pessoa() {
           </div>
           <div className="flex flex-col">
             <h1 className="font-medium text-lg mb-1">Conhecido(a) por</h1>
-            <div className="overflow-x-auto custom-scrollbar">
+            <div className="overflow-x-auto custom-scrollbar pb-1">
               <div className="flex gap-1">
                 {filmesLimitado.map((filme) => (
                   <Link key={filme.id} to={`/filmes/${filme.id}`}>
                     <div
                       key={filme.id}
                       className="text-white rounded-lg flex flex-col items-center w-36 flex-shrink-0"
-                      style={{ height: "17rem" }}
+                      style={{ height: "auto" }}
                     >
                       <img
                         src={`${imagesURL}${filme.poster_path}`}
@@ -123,6 +128,19 @@ export default function Pessoa() {
                     </div>
                   </Link>
                 ))}
+                <div>
+                  <Link
+                    to={`filmes`}
+                    className="p-2 flex rounded-lg items-center justify-center h-48 w-32 mb-3 bg-18"
+                  >
+                    <span className="flex justify-center font-bold text-lg w-32">
+                      Mais Filmes
+                    </span>
+                  </Link>
+                  <h1 className="text-center text-sm w-32">
+                    Veja mais filmes de {pessoa.name}
+                  </h1>
+                </div>
               </div>
             </div>
           </div>

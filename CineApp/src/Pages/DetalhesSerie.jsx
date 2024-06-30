@@ -37,7 +37,11 @@ const getBorderColor = (avaliacao) => {
 export default function DetalhesSerie() {
   const { id } = useParams();
   const [serie, setSerie] = useState({});
-  const [credits, setCredits] = useState({ cast: [], crew: [] });
+  const [credits, setCredits] = useState({
+    cast: [],
+    crew: [],
+    created_by: [],
+  });
 
   useEffect(() => {
     const fetchSerie = async () => {
@@ -67,7 +71,9 @@ export default function DetalhesSerie() {
   const avaliacao = Math.round(serie.vote_average * 10);
   const borderColorClass = getBorderColor(avaliacao);
 
-  const diretor = credits.crew?.find((member) => member.job === "Director");
+  const criadores = serie.created_by
+    ? serie.created_by.map((creator) => creator.name).join(", ")
+    : "N/A";
 
   return (
     <div
@@ -116,7 +122,7 @@ export default function DetalhesSerie() {
             <div
               className={`h-14 w-14 mt-2 rounded-full flex justify-center items-center bg-18 border-2 ${borderColorClass}`}
             >
-              <p className="font-semibold">{avaliacao}</p>
+              <p className="font-semibold">{String(avaliacao)}</p>
               <p className="font-light">%</p>
             </div>
           </div>
@@ -145,26 +151,12 @@ export default function DetalhesSerie() {
             <p className="pl-1">{serie.original_language || "N/A"}</p>
           </div>
           <div className="pb-3">
-            <h1 className="font-semibold">Orçamento</h1>
-            <p className="pl-1">
-              {serie.budget !== undefined && serie.budget !== null
-                ? serie.budget.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  })
-                : "N/A"}
-            </p>
+            <h1 className="font-semibold">Episódios</h1>
+            <p className="pl-1">{serie.number_of_episodes}</p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Receita</h1>
-            <p className="pl-1">
-              {serie.revenue !== undefined && serie.revenue !== null
-                ? serie.revenue.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  })
-                : "N/A"}
-            </p>
+          <div className="pb-3 w-32">
+            <h1 className="font-semibold">Último episódio</h1>
+            <p className="pl-1">{formatarData(serie.last_air_date)}</p>
           </div>
         </div>
       </div>
@@ -181,28 +173,23 @@ export default function DetalhesSerie() {
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Diretor</h1>
-          <p className="pl-1">
-            {credits.crew
-              ?.filter((member) => member.job === "Director")
-              .map((director) => director.name)
-              .join(", ") || "N/A"}
-          </p>
+          <h1 className="font-semibold">Criador</h1>
+          <p className="pl-1">{criadores}</p>
         </div>
         <div className="pb-3 flex flex-col w-64">
           <h1 className="font-semibold">Roteirista</h1>
           <p className="pl-1">
             {credits.crew
-              ?.filter((member) => member.job === "Screenplay")
+              ?.filter((member) => member.department === "Screenplay")
               .map((screenplay) => screenplay.name)
               .join(", ") || "N/A"}
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Autor do Livro</h1>
+          <h1 className="font-semibold">Escritor(es</h1>
           <p className="pl-1">
             {credits.crew
-              ?.filter((member) => member.job === "Novel")
+              ?.filter((member) => member.department === "Writing")
               .map((novel) => novel.name)
               .join(", ") || "N/A"}
           </p>

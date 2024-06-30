@@ -8,7 +8,6 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function Pesquisa() {
   const [searchParams] = useSearchParams();
-
   const [resultados, setResultados] = useState([]);
   const query = searchParams.get("q");
 
@@ -35,7 +34,10 @@ export default function Pesquisa() {
       getSearchedContent(searchWithQueryURLS),
     ])
       .then(([filmes, series]) => {
-        const resultadosConcatenados = [...filmes, ...series];
+        const resultadosConcatenados = [
+          ...filmes.map((filme) => ({ ...filme, type: "movie" })),
+          ...series.map((serie) => ({ ...serie, type: "tv" })),
+        ];
         setResultados(resultadosConcatenados);
       })
       .catch((error) => {
@@ -54,9 +56,7 @@ export default function Pesquisa() {
           resultados.map((resultado) => (
             <Link
               key={resultado.id}
-              to={`/${resultado.media_type === "tv" ? "series" : "filmes"}/${
-                resultado.id
-              }`}
+              to={`/${resultado.type === "tv" ? "series" : "filmes"}/${resultado.id}`}
               className="relative text-white p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
               style={{
                 backgroundImage: `url(${imagesURL}${resultado.poster_path})`,

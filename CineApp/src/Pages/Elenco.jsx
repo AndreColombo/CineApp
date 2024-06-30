@@ -1,7 +1,9 @@
+import ListaElenco from "../Components/ListaElenco";
+
 export default function Elenco() {
   return (
     <>
-      <h1>elenco</h1>
+      <ListaElenco />
     </>
   );
 }

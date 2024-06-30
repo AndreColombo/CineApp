@@ -7,11 +7,12 @@ import ScrollToTop from "./Components/ScrollToTop.jsx";
 import Pesquisa from "./Pages/Pesquisa.jsx";
 import Home from "./Pages/Home.jsx";
 import Filmes from "./Pages/Filmes.jsx";
-import DetalhesFilme from "./Pages/DetalhesFilmes.jsx";
+import DetalhesFilme from "./Pages/DetalhesFilme.jsx";
 import Series from "./Pages/Series.jsx";
 import DetalhesSerie from "./Pages/DetalhesSerie.jsx";
 import Elenco from "./Pages/Elenco.jsx";
 import Pessoa from "./Pages/Pessoa.jsx";
+import FilmesPessoa from "./Pages/FilmesPessoa.jsx";
 import Noticias from "./Pages/Noticias.jsx";
 import Noticia from "./Pages/Noticia.jsx";
 import Sobre from "./Pages/Sobre.jsx";
@@ -31,15 +32,21 @@ root.render(
           <Route index element={<Home />} />
           <Route path="filmes" element={<Filmes />} />
           <Route path="filmes/:id" element={<DetalhesFilme />} />
+          <Route path="filmes/:id/elenco" element={<Elenco tipo="filme" />} />
           <Route path="series" element={<Series />} />
           <Route path="series/:id" element={<DetalhesSerie />} />
-          <Route path="filmes/:id/elenco" element={<Elenco />} />
+          <Route path="series/:id/elenco" element={<Elenco tipo="serie" />} />
           <Route path="pessoa/:id" element={<Pessoa />} />
+          <Route path="pessoa/:id/filmes" element={<FilmesPessoa />} />
           <Route path="noticias" element={<Noticias />} />
           <Route path="noticias/:id" element={<Noticia />} />
           <Route path="sobre" element={<Sobre />} />
           <Route path="pesquisa" element={<Pesquisa />} />
           <Route path="ingresso/:id" element={<ComprarIngresso />} />
+          <Route
+            path="ingresso/:id/elenco"
+            element={<Elenco tipo="filmes" />}
+          />
           <Route path="pagamento" element={<Pagamento />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>

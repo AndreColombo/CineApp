@@ -151,7 +151,7 @@ export default function ComprarIngresso() {
             <div
               className={`h-14 w-14 mt-2 rounded-full flex justify-center items-center bg-18 border-2 ${borderColorClass}`}
             >
-              <p className="font-semibold">{avaliacao}</p>
+              <p className="font-semibold">{String(avaliacao)}</p>
               <p className="font-light">%</p>
             </div>
           </div>
