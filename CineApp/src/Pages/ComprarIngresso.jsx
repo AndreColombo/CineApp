@@ -202,7 +202,7 @@ export default function ComprarIngresso() {
 
       <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly m-10 mt-0">
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Produtora</h1>
+          <h1 className="font-semibold">Produtora(s)</h1>
           <p className="pl-1">
             {filme.production_companies
               ?.map((company) => company.name)
@@ -219,7 +219,7 @@ export default function ComprarIngresso() {
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Roteirista</h1>
+          <h1 className="font-semibold">Roteirista(s)</h1>
           <p className="pl-1">
             {credits.crew
               ?.filter((member) => member.job === "Screenplay")
@@ -228,11 +228,11 @@ export default function ComprarIngresso() {
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Autor do Livro</h1>
+          <h1 className="font-semibold">Escritor</h1>
           <p className="pl-1">
             {credits.crew
-              ?.filter((member) => member.job === "Novel")
-              .map((novel) => novel.name)
+              ?.filter((member) => member.job === "Writer")
+              .map((writer) => writer.name)
               .join(", ") || "N/A"}
           </p>
         </div>

@@ -163,7 +163,7 @@ export default function DetalhesSerie() {
 
       <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly m-10 mt-0">
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Produtora</h1>
+          <h1 className="font-semibold">Produtora(s)</h1>
           <p className="pl-1">
             {serie.production_companies?.length
               ? serie.production_companies
@@ -173,20 +173,17 @@ export default function DetalhesSerie() {
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Criador</h1>
-          <p className="pl-1">{criadores}</p>
-        </div>
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Roteirista</h1>
+          <h1 className="font-semibold">Rede(s) de TV</h1>
           <p className="pl-1">
-            {credits.crew
-              ?.filter((member) => member.department === "Screenplay")
-              .map((screenplay) => screenplay.name)
-              .join(", ") || "N/A"}
+            {serie.networks?.map((network) => network.name).join(", ") || "N/A"}
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Escritor(es</h1>
+          <h1 className="font-semibold">Criador(es)</h1>
+          <p className="pl-1">{criadores}</p>
+        </div>
+        <div className="pb-3 flex flex-col w-64">
+          <h1 className="font-semibold">Escritor(es)</h1>
           <p className="pl-1">
             {credits.crew
               ?.filter((member) => member.department === "Writing")

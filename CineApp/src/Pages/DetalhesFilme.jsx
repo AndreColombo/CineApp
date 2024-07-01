@@ -201,20 +201,20 @@ export default function DetalhesFilme() {
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Roteirista</h1>
+          <h1 className="font-semibold">Roteirista(s)</h1>
           <p className="pl-1">
             {credits.crew
-              ?.filter((member) => member.department === "Screenplay")
+              ?.filter((member) => member.job === "Screenplay")
               .map((screenplay) => screenplay.name)
               .join(", ") || "N/A"}
           </p>
         </div>
         <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Escritor(es)</h1>
+          <h1 className="font-semibold">Escritor</h1>
           <p className="pl-1">
             {credits.crew
-              ?.filter((member) => member.department === "Writing")
-              .map((novel) => novel.name)
+              ?.filter((member) => member.job === "Writer")
+              .map((writer) => writer.name)
               .join(", ") || "N/A"}
           </p>
         </div>
