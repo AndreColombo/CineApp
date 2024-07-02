@@ -70,8 +70,8 @@ export default function Pessoa() {
   if (!pessoa) return <div>Carregando...</div>;
 
   return (
-    <div className="px-24 py-10 flex gap-5">
-      <div className="text-white bg-18 p-1 rounded-xl flex flex-col justify-center">
+    <div className="px-28 py-10 flex gap-5">
+      <div className="text-26 dark:text-FF bg-D0 dark:bg-18 p-1 rounded-xl flex flex-col justify-center">
         <img
           src={
             pessoa.profile_path
@@ -102,7 +102,7 @@ export default function Pessoa() {
       </div>
 
       <div className="flex flex-col w-3/4">
-        <div className="text-white flex flex-col justify-evenly">
+        <div className="text-26 dark:text-FF flex flex-col justify-evenly">
           <h1 className="font-bold text-3xl mb-5">{pessoa.name}</h1>
           <div className="mb-5">
             <p className="font-medium text-lg mb-1">Biografia</p>
@@ -116,7 +116,7 @@ export default function Pessoa() {
                   <Link key={filme.id} to={`/filmes/${filme.id}`}>
                     <div
                       key={filme.id}
-                      className="text-white rounded-lg flex flex-col items-center w-36 flex-shrink-0"
+                      className="text-26 dark:text-FF rounded-lg flex flex-col items-center w-36 flex-shrink-0"
                       style={{ height: "auto" }}
                     >
                       <img
@@ -131,7 +131,7 @@ export default function Pessoa() {
                 <div>
                   <Link
                     to={`filmes`}
-                    className="p-2 flex rounded-lg items-center justify-center h-48 w-32 mb-3 bg-18"
+                    className="p-2 flex rounded-lg items-center justify-center h-48 w-32 mb-3"
                   >
                     <span className="flex justify-center font-bold text-lg w-32">
                       Mais Filmes

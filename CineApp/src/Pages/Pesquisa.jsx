@@ -48,7 +48,7 @@ export default function Pesquisa() {
 
   return (
     <>
-      <h1 className="text-white pl-14 font-bold text-xl m-4">
+      <h1 className="text-26 dark:text-FF  pl-14 font-bold text-xl m-4">
         Resultados para: <span className="text-[#FF5733]">{query}</span>
       </h1>
       <div className="flex gap-7 flex-wrap justify-center">
@@ -57,14 +57,14 @@ export default function Pesquisa() {
             <Link
               key={resultado.id}
               to={`/${resultado.type === "tv" ? "series" : "filmes"}/${resultado.id}`}
-              className="relative text-white p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
+              className="relative text-FF p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
               style={{
                 backgroundImage: `url(${imagesURL}${resultado.poster_path})`,
               }}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
               <div className="relative z-10 w-full">
-                <h1 className="text-white font-bold pl-3 mb-2">
+                <h1 className="text-FF font-bold pl-3 mb-2">
                   {resultado.title || resultado.name}
                 </h1>
                 <p className="text-sm text-opacity-75 line-clamp-2 pl-3 pr-3">
@@ -72,14 +72,14 @@ export default function Pesquisa() {
                 </p>
                 <div className="infos flex justify-between p-3">
                   <div className="linguas flex items-center space-x-2">
-                    <span className="bg-18 text-white text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
+                    <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
                       dub
                     </span>
-                    <span className="bg-18 text-white text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
+                    <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
                       {resultado.original_language}
                     </span>
                   </div>
-                  <span className="bg-18 text-white text-opacity-75 font-medium p-1 rounded text-sm flex-shrink-0">
+                  <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded text-sm flex-shrink-0">
                     00+
                   </span>
                 </div>
@@ -87,7 +87,7 @@ export default function Pesquisa() {
             </Link>
           ))
         ) : (
-          <p className="text-white">Nenhum resultado encontrado.</p>
+          <p className="text-FF">Nenhum resultado encontrado.</p>
         )}
       </div>
     </>

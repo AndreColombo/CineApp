@@ -51,7 +51,7 @@ export default function ListaElenco() {
 
   return (
     <>
-      <div className="flex gap-5 text-white bg-B0 px-20 py-4 my-3">
+      <div className="flex gap-5 text-FF bg-B0 px-20 py-4 my-3">
         <img
           className="rounded h-24"
           src={`${imagesURL}${filme.poster_path}`}
@@ -60,7 +60,7 @@ export default function ListaElenco() {
         <div className="flex flex-col justify-center">
           <div className="flex gap-2 items-center">
             <h1 className="font-bold text-3xl">{filme.title}</h1>
-            <h1 className="text-white text-opacity-75 font-medium text-3xl">
+            <h1 className="text-FF text-opacity-75 font-medium text-3xl">
               {" "}
               (
               {filme.release_date
@@ -70,7 +70,7 @@ export default function ListaElenco() {
             </h1>
           </div>
           <Link to={`/filmes/${filme.id}`} key={filme.id}>
-            <p className="text-white text-opacity-75 text-lg">
+            <p className="text-FF text-opacity-75 text-lg">
               ← Voltar ao filme
             </p>
           </Link>
@@ -80,8 +80,8 @@ export default function ListaElenco() {
       <div className="flex px-20 gap-60">
         <div>
           <div className="flex flex-row gap-2 items-center">
-            <h1 className="text-white font-bold text-2xl">Elenco</h1>
-            <h1 className="text-white text-opacity-75 text-xl">
+            <h1 className="text-26 dark:text-FF font-bold text-2xl">Elenco</h1>
+            <h1 className="text-26 dark:text-FF text-opacity-75 text-xl">
               ({credits.cast.length})
             </h1>
           </div>
@@ -99,8 +99,8 @@ export default function ListaElenco() {
                     className="rounded-lg w-20 h-20 object-cover mb-2 bg-18"
                   />
                   <div className="pl-5">
-                    <h1 className="text-white font-semibold">{ator.name}</h1>
-                    <p className="text-white font-light text-opacity-75">
+                    <h1 className="text-26 dark:text-FF font-semibold">{ator.name}</h1>
+                    <p className="text-26 dark:text-FF font-light text-opacity-75">
                       {ator.character}
                     </p>
                   </div>
@@ -112,8 +112,8 @@ export default function ListaElenco() {
 
         <div>
           <div className="flex flex-row gap-2 items-center">
-            <h1 className="text-white font-bold text-2xl">Equipe técnica</h1>
-            <h1 className="text-white text-opacity-75 text-xl">
+            <h1 className="text-26 dark:text-FF font-bold text-2xl">Equipe técnica</h1>
+            <h1 className="text-26 dark:text-FF text-opacity-75 text-xl">
               ({credits.crew.length})
             </h1>
           </div>
@@ -131,8 +131,8 @@ export default function ListaElenco() {
                     className="rounded-lg w-20 h-20 object-cover mb-2 bg-18"
                   />
                   <div className="pl-5">
-                    <h1 className="text-white font-semibold">{equipe.name}</h1>
-                    <p className="text-white font-light text-opacity-75">
+                    <h1 className="text-26 dark:text-FF font-semibold">{equipe.name}</h1>
+                    <p className="text-26 dark:text-FF font-light text-opacity-75">
                       {equipe.job}
                     </p>
                   </div>

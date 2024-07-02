@@ -113,7 +113,7 @@ export default function DetalhesSerie() {
             <div className="flex gap-3">
               <p>{formatarData(serie.first_air_date)} (BR)</p>
               <p>-</p>
-              <p className="text-white">
+              <p className="text-FF">
                 {serie.genres?.map((genre) => genre.name).join(", ") || "N/A"}
               </p>
               <p>-</p>
@@ -128,7 +128,7 @@ export default function DetalhesSerie() {
           </div>
 
           <div>
-            <p className="text-white text-opacity-75 my-2">{serie.tagline}</p>
+            <p className="text-FF text-opacity-75 my-2">{serie.tagline}</p>
 
             <div className="flex gap-1 flex-col">
               <h1 className="font-medium text-lg">Sinopse</h1>

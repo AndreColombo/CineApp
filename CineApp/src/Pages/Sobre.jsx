@@ -1,7 +1,7 @@
 export default function Sobre() {
   return (
     <>
-      <div className="p-10 text-white">
+      <div className="p-10 text-26 dark:text-FF">
         <h1 className="text-3xl font-bold mb-4">Sobre o AndreFlix</h1>
 
         <p className="mb-4">

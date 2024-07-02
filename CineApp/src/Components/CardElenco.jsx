@@ -12,7 +12,7 @@ export default function CardElenco({ elenco }) {
         {elencoLimitado.map((ator) => (
           <Link to={`/pessoa/${ator.id}`} key={ator.id}>
             <div
-              className="bg-26 text-white rounded-lg flex-shrink-0"
+              className="bg-FF  dark:bg-26 text-26 dark:text-FF rounded-lg flex-shrink-0"
               style={{ width: "10rem", height: "100%" }}
             >
               <img
@@ -26,7 +26,7 @@ export default function CardElenco({ elenco }) {
               />
               <div className="p-2">
                 <h1 className="font-semibold text-lg">{ator.name}</h1>
-                <p className="text-white text-opacity-75">{ator.character}</p>
+                <p className="">{ator.character}</p>
               </div>
             </div>
           </Link>

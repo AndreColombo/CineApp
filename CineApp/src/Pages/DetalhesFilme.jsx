@@ -124,7 +124,7 @@ export default function DetalhesFilme() {
             <div className="flex gap-3">
               <p>{formatarData(filme.release_date)} (BR)</p>
               <p>-</p>
-              <p className="text-white">
+              <p className="text-FF">
                 {filme.genres.map((genre) => genre.name).join(", ")}
               </p>
               <p>-</p>
@@ -139,7 +139,7 @@ export default function DetalhesFilme() {
           </div>
 
           <div>
-            <p className="text-white text-opacity-75 my-2">{filme.tagline}</p>
+            <p className="text-FF text-opacity-75 my-2">{filme.tagline}</p>
 
             <div className="flex gap-1 flex-col">
               <h1 className="font-medium text-lg">Sinopse</h1>

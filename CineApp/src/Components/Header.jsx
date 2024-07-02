@@ -16,7 +16,7 @@ export default function Header() {
   };
 
   return (
-    <header className="flex text-white p-8 px-14 justify-between items-center">
+    <header className="flex text-26 dark:text-FF p-8 px-14 justify-between items-center">
       <Link to="/">
         <img src="/./AndreFlix.png" alt="AndreFlix" width={150} />
       </Link>
@@ -26,7 +26,7 @@ export default function Header() {
           placeholder="Pesquisar Filmes"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
-          className="w-96 rounded p-1 bg-26 border border-[#FF5733]"
+          className="w-96 rounded p-1 bg-FF dark:bg-26 border border-[#FF5733]"
         />
       </form>
       <Navbar />

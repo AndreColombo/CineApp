@@ -17,7 +17,7 @@ import Noticias from "./Pages/Noticias.jsx";
 import Noticia from "./Pages/Noticia.jsx";
 import Sobre from "./Pages/Sobre.jsx";
 import ComprarIngresso from "./Pages/ComprarIngresso.jsx";
-import Pagamento from "./Pages/Pagamento.jsx";
+import Confirmacao from "./Pages/Confirmacao.jsx";
 import PageNotFound from "./Pages/PageNotFound.jsx";
 
 const container = document.getElementById("root");
@@ -47,7 +47,7 @@ root.render(
             path="ingresso/:id/elenco"
             element={<Elenco tipo="filmes" />}
           />
-          <Route path="pagamento" element={<Pagamento />} />
+          <Route path="confirmacao" element={<Confirmacao />} />
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>

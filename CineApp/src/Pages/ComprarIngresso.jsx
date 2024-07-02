@@ -87,20 +87,21 @@ export default function ComprarIngresso() {
   const avaliacao = Math.round(filme.vote_average * 10);
   const borderColorClass = getBorderColor(avaliacao);
 
-  const [ticketType, setTicketType] = useState("");
-  const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [expiry, setExpiry] = useState("");
+  const [tipoIngresso, setTipoIngresso] = useState("");
+  const [idioma, setIdioma] = useState("");
+  const [quantidade, setQuantidade] = useState(1);
+  const [numeroCartao, setNumeroCartao] = useState("");
+  const [validade, setValidade] = useState("");
   const [cvv, setCvv] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("ticketType", ticketType);
-    localStorage.setItem("quantity", quantity);
     localStorage.setItem("name", name);
     localStorage.setItem("email", email);
+    localStorage.setItem("tipoIngresso", tipoIngresso);
+    localStorage.setItem("quantidade", quantidade);
     navigate("/confirmacao");
   };
 
@@ -142,7 +143,7 @@ export default function ComprarIngresso() {
             <div className="flex gap-3">
               <p>{formatarData(filme.release_date)} (BR)</p>
               <p>-</p>
-              <p className="text-white">
+              <p className="text-FF">
                 {filme.genres.map((genre) => genre.name).join(", ")}
               </p>
               <p>-</p>
@@ -157,7 +158,7 @@ export default function ComprarIngresso() {
           </div>
 
           <div>
-            <p className="text-white text-opacity-75 my-2">{filme.tagline}</p>
+            <p className="text-FF text-opacity-75 my-2">{filme.tagline}</p>
 
             <div className="flex gap-1 flex-col">
               <h1 className="font-medium text-lg">Sinopse</h1>
@@ -239,7 +240,7 @@ export default function ComprarIngresso() {
       </div>
       {credits.cast.length > 0 && <CardElenco elenco={credits.cast} />}
 
-      <div className="text-white pl-14">
+      <div className="pl-14">
         <h1 className="font-bold text-xl my-5">Comprar Ingressos</h1>
         <form onSubmit={handleSubmit} className="flex flex-row">
           <div className="flex flex-col">
@@ -250,7 +251,7 @@ export default function ComprarIngresso() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
                   required
                 />
               </label>
@@ -262,7 +263,8 @@ export default function ComprarIngresso() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  placeholder="exemplo@gmail.com"
                   required
                 />
               </label>
@@ -273,14 +275,14 @@ export default function ComprarIngresso() {
               <label>
                 Tipo de ingresso:
                 <select
-                  value={ticketType}
-                  onChange={(e) => setTicketType(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  value={tipoIngresso}
+                  onChange={(e) => setTipoIngresso(e.target.value)}
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
                 >
                   <option value="">Selecione</option>
-                  <option value="vip">VIP - R$75,00</option>
-                  <option value="general">Geral - R$50,00</option>
-                  <option value="half">Meia-entrada - R$25,00</option>
+                  <option value="VIP">VIP - R$75,00</option>
+                  <option value="Comum">Comum - R$50,00</option>
+                  <option value="Meia">Meia-entrada - R$25,00</option>
                 </select>
               </label>
             </div>
@@ -288,9 +290,9 @@ export default function ComprarIngresso() {
               <label>
                 Idioma:
                 <select
-                  value={ticketType}
-                  onChange={(e) => setTicketType(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  value={idioma}
+                  onChange={(e) => setIdioma(e.target.value)}
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
                 >
                   <option value="">Selecione</option>
                   <option value="dub">Dublado</option>
@@ -303,9 +305,9 @@ export default function ComprarIngresso() {
                 Quantidade:
                 <input
                   type="number"
-                  value={quantity}
-                  onChange={(e) => setQuantity(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  value={quantidade}
+                  onChange={(e) => setQuantidade(e.target.value)}
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
                   min="1"
                 />
               </label>
@@ -317,9 +319,10 @@ export default function ComprarIngresso() {
                 Número do cartão:
                 <input
                   type="text"
-                  value={cardNumber}
-                  onChange={(e) => setCardNumber(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  value={numeroCartao}
+                  onChange={(e) => setNumeroCartao(e.target.value)}
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  placeholder="xxxx xxxx xxxx xxxx"
                   required
                 />
               </label>
@@ -329,9 +332,10 @@ export default function ComprarIngresso() {
                 Validade:
                 <input
                   type="text"
-                  value={expiry}
-                  onChange={(e) => setExpiry(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  value={validade}
+                  onChange={(e) => setValidade(e.target.value)}
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  placeholder="xx/xx"
                   required
                 />
               </label>
@@ -343,13 +347,19 @@ export default function ComprarIngresso() {
                   type="text"
                   value={cvv}
                   onChange={(e) => setCvv(e.target.value)}
-                  className="ml-2 rounded p-1 bg-26 border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  placeholder="xxx"
                   required
                 />
               </label>
             </div>
           </div>
-          <button type="submit">Confirmar Compra</button>
+          <button
+            type="submit"
+            className="bg-B0 text-FF font-medium h-10 p-1 rounded uppercase text-sm"
+          >
+            Confirmar Compra
+          </button>
         </form>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import TrocarTema from "./TrocarTema";
 
 export default function Navbar() {
   return (
@@ -19,6 +20,7 @@ export default function Navbar() {
         <li>
           <Link to="sobre">Sobre</Link>
         </li>
+        <TrocarTema />
       </ul>
     </nav>
   );

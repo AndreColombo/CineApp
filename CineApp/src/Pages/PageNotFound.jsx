@@ -1,7 +1,7 @@
 export default function PageNotFound() {
   return (
     <>
-      <div className="text-white p-40 flex flex-col items-center">
+      <div className="text-26 dark:text-FF p-40 flex flex-col items-center">
         <h1 className="font-bold text-4xl flex justify-center items-center">
           Página não encontrada
         </h1>
