@@ -5,7 +5,7 @@
 /* Cores para o tema claro */
 .custom-scrollbar {
   scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #b00000 #FFDED0; /* Firefox */
+  scrollbar-color: #b00000 #FFD0D0; /* Firefox */
 }
 
 /* Chrome, Safari, and Opera */
@@ -15,13 +15,13 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #FFDED0;
+  background: #FFD0D0;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: #b00000;
   border-radius: 10px;
-  border: 3px solid #FFDED0;
+  border: 3px solid #FFD0D0;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {

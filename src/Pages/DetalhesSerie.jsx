@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CardElenco from "../Components/CardElenco";
 
+const defaultImageF = import.meta.env.VITE_DEFAULTIMGF;
 const imagesURL = import.meta.env.VITE_IMG;
 const backdropURL = import.meta.env.VITE_BKD;
 const seriesURL = import.meta.env.VITE_APIS;
@@ -93,7 +94,11 @@ export default function DetalhesSerie() {
       <div className="flex flex-row p-10 pt-4 justify-between">
         <img
           className="rounded h-96"
-          src={`${imagesURL}${serie.poster_path}`}
+          src={
+            serie.poster_path
+              ? `${imagesURL}${serie.poster_path}`
+              : defaultImageF
+          }
           alt={serie.name}
         />
         <div className="flex flex-col justify-evenly pl-5">
@@ -192,7 +197,9 @@ export default function DetalhesSerie() {
           </p>
         </div>
       </div>
-      {credits.cast.length > 0 && <CardElenco elenco={credits.cast} />}
+      {credits.cast.length > 0 && (
+        <CardElenco elenco={credits.cast} producao={serie} />
+      )}
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
-const defaultImage = import.meta.env.VITE_DEFAULTIMGP;
+const defaultImageF = import.meta.env.VITE_DEFAULTIMGF;
+const defaultImageH = import.meta.env.VITE_DEFAULTIMGH;
+const defaultImageM = import.meta.env.VITE_DEFAULTIMGM;
 const imagesURL = import.meta.env.VITE_IMG;
 const pessoaURL = import.meta.env.VITE_API_PERSON;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -76,7 +78,7 @@ export default function Pessoa() {
           src={
             pessoa.profile_path
               ? `${imagesURL}${pessoa.profile_path}`
-              : defaultImage
+              : defaultImageH
           }
           alt={pessoa.name}
           className="rounded-lg mb-5"
@@ -134,7 +136,7 @@ export default function Pessoa() {
                     className="p-2 flex rounded-lg items-center justify-center h-48 w-32 mb-3"
                   >
                     <span className="flex justify-center font-bold text-lg w-32">
-                      Mais Filmes
+                      Ver Outros
                     </span>
                   </Link>
                   <h1 className="text-center text-sm w-32">

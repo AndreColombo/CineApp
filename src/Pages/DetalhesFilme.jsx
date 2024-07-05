@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CardElenco from "../Components/CardElenco";
 
+const defaultImageF = import.meta.env.VITE_DEFAULTIMGF;
 const imagesURL = import.meta.env.VITE_IMG;
 const backdropURL = import.meta.env.VITE_BKD;
 const moviesURL = import.meta.env.VITE_APIM;
@@ -104,7 +105,11 @@ export default function DetalhesFilme() {
       <div className="flex flex-row p-10 pt-4 justify-between">
         <img
           className="rounded h-96"
-          src={`${imagesURL}${filme.poster_path}`}
+          src={
+            filme.poster_path
+              ? `${imagesURL}${filme.poster_path}`
+              : defaultImageF
+          }
           alt={filme.title}
         />
         <div className="flex flex-col justify-evenly pl-5">
@@ -219,7 +224,9 @@ export default function DetalhesFilme() {
           </p>
         </div>
       </div>
-      {credits.cast.length > 0 && <CardElenco elenco={credits.cast} />}
+      {credits.cast.length > 0 && (
+        <CardElenco elenco={credits.cast} producao={filme} />
+      )}
     </div>
   );
 }

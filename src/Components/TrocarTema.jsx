@@ -26,15 +26,15 @@ export default function TrocarTema() {
   };
 
   return (
-    <div className="hidden sm:block mr-4">
+    <div>
       {dark ? (
         <SunIcon
-          className="w-7 h-7 text-gray-100 cursor-pointer"
+          className="w-7 h-7 text-FF cursor-pointer"
           onClick={trocarTema}
         />
       ) : (
         <MoonIcon
-          className="w-7 h-7 text-gray-100 cursor-pointer"
+          className="w-7 h-7 text-26 cursor-pointer"
           onClick={trocarTema}
         />
       )}

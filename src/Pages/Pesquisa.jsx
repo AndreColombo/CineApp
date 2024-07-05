@@ -6,6 +6,11 @@ const searchURLM = import.meta.env.VITE_SEARCHM;
 const searchURLS = import.meta.env.VITE_SEARCHS;
 const apiKey = import.meta.env.VITE_API_KEY;
 
+// Função para determinar o link de destino
+const getLinkTo = (producao) => {
+  return producao.title ? `/filmes/${producao.id}` : `/series/${producao.id}`;
+};
+
 export default function Pesquisa() {
   const [searchParams] = useSearchParams();
   const [resultados, setResultados] = useState([]);
@@ -56,7 +61,7 @@ export default function Pesquisa() {
           resultados.map((resultado) => (
             <Link
               key={resultado.id}
-              to={`/${resultado.type === "tv" ? "series" : "filmes"}/${resultado.id}`}
+              to={getLinkTo(resultado)}
               className="relative text-FF p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
               style={{
                 backgroundImage: `url(${imagesURL}${resultado.poster_path})`,

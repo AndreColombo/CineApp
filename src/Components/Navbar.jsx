@@ -4,7 +4,7 @@ import TrocarTema from "./TrocarTema";
 export default function Navbar() {
   return (
     <nav>
-      <ul className="flex gap-5 text-lg">
+      <ul className="flex gap-5 text-lg items-center">
         <li>
           <Link to="/">Home</Link>
         </li>

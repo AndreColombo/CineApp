@@ -5,6 +5,7 @@ import data from "../../artigos.json";
 export default function Noticia() {
   const { id } = useParams();
   const noticia = data.find((noticia) => noticia.id === id);
+  const noticiasLimitadas = data.slice(7, 12);
 
   if (!noticia) {
     return (
@@ -26,27 +27,12 @@ export default function Noticia() {
   return (
     <div className="">
       <div className="flex p-5">
-        <div className="flex flex-col rounded-lg m-3 p-5 bg-D0 dark:bg-18 w-7/12">
-          <h1 className="text-26 dark:text-FF font-bold text-xl line-clamp-2 mb-2">
-            {noticia.title}
-          </h1>
-          <p className="text-26 dark:text-FF text-sm">{noticia.text}</p>
-          <img className="rounded-lg w-full my-5" src={noticia.image} />
-          {textoParagrafos.map((paragraph, index) => (
-            <p key={index} className="mb-3 text-26 dark:text-FF">
-              {paragraph}
-            </p>
-          ))}
-          <div className="flex flex-row justify-between mt-3 text-26 dark:text-FF">
-            <p>{noticia.data}</p>
-            <p>{noticia.autor}</p>
-          </div>
-        </div>
+        {/* ------------------------------ Outras Coisas ------------------------------ */}
         <div className="flex flex-col rounded m-3 p-5 bg-D0 dark:bg-18 w-3/12">
           <h1 className="text-26 dark:text-FF font-bold text-lg">
             Leia Também:
           </h1>
-          {data.map((noticia) => (
+          {noticiasLimitadas.map((noticia) => (
             <div
               key={noticia.id}
               className="flex flex-col rounded mx-3 m-4 p-3 bg-FF dark:bg-26"
@@ -58,6 +44,49 @@ export default function Noticia() {
                 </h1>
                 <p className="line-clamp-3 text-26 dark:text-FF">
                   {noticia.text}
+                </p>
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        {/* ------------------------------ Notícia Principal ------------------------------ */}
+        <div className="flex flex-col rounded-lg m-3 p-5 bg-D0 dark:bg-18 w-7/12">
+          <h1 className="text-26 dark:text-FF font-bold text-xl line-clamp-2 mb-2">
+            {noticia.title}
+          </h1>
+          <p className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 font-medium">{noticia.text}</p>
+          <img className="rounded-lg w-full my-5" src={noticia.image} />
+          {textoParagrafos.map((paragraph, index) => (
+            <p key={index} className="mb-3 text-26 dark:text-FF">
+              {paragraph}
+            </p>
+          ))}
+          <div className="flex flex-row justify-between mt-3 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75">
+            <p>
+              {noticia.data} {noticia.hora}
+            </p>
+            <p>{noticia.autor}</p>
+          </div>
+        </div>
+
+        {/* ------------------------------ Outras Notícias ------------------------------ */}
+        <div className="flex flex-col rounded m-3 p-5 bg-D0 dark:bg-18 w-3/12">
+          <h1 className="text-26 dark:text-FF font-bold text-lg">
+            Leia Também:
+          </h1>
+          {noticiasLimitadas.map((noticia) => (
+            <div
+              key={noticia.id}
+              className="flex flex-col rounded mx-3 m-4 p-3 bg-FF dark:bg-26"
+            >
+              <Link to={`/noticias/${noticia.id}`}>
+                <img className="rounded w-full" src={noticia.image} />
+                <p className="line-clamp-3 text-26 dark:text-FF my-2">
+                  {noticia.text}
+                </p>
+                <p className="flex justify-end mt-4 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75">
+                  {noticia.data}
                 </p>
               </Link>
             </div>

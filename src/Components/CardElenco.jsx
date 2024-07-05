@@ -1,9 +1,16 @@
 import { Link } from "react-router-dom";
 
-const defaultImage = import.meta.env.VITE_DEFAULTIMGP;
+const defaultImageH = import.meta.env.VITE_DEFAULTIMGH;
 const imagesURL = import.meta.env.VITE_IMG;
 
-export default function CardElenco({ elenco }) {
+// Função para determinar o link de destino
+const getLinkTo = (producao) => {
+  return producao.title
+    ? `/filmes/${producao.id}/elenco`
+    : `/series/${producao.id}/elenco`;
+};
+
+export default function CardElenco({ elenco, producao }) {
   const elencoLimitado = elenco.slice(0, 9);
 
   return (
@@ -12,27 +19,31 @@ export default function CardElenco({ elenco }) {
         {elencoLimitado.map((ator) => (
           <Link to={`/pessoa/${ator.id}`} key={ator.id}>
             <div
-              className="bg-FF  dark:bg-26 text-26 dark:text-FF rounded-lg flex-shrink-0"
+              className="bg-FF  dark:bg-26 rounded-lg flex-shrink-0"
               style={{ width: "10rem", height: "100%" }}
             >
               <img
                 src={
                   ator.profile_path
                     ? `${imagesURL}${ator.profile_path}`
-                    : defaultImage
+                    : defaultImageH
                 }
                 alt={ator.name}
                 className="rounded-t-lg w-full h-48 object-cover"
               />
               <div className="p-2">
-                <h1 className="font-semibold text-lg">{ator.name}</h1>
-                <p className="">{ator.character}</p>
+                <h1 className="font-semibold text-lg text-26 dark:text-FF">
+                  {ator.name}
+                </h1>
+                <p className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75">
+                  {ator.character}
+                </p>
               </div>
             </div>
           </Link>
         ))}
         <Link
-          to={`elenco`}
+          to={getLinkTo(producao)}
           className="backdrop-blur-xl p-2 flex rounded-lg items-center justify-center"
           style={{ width: "10rem", height: "auto" }}
         >
