@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
+import CardNoticia from "../Components/CardNoticia";
+import artigos from "../../artigos.json";
 
 const imagesURL = import.meta.env.VITE_IMG;
 const searchURLM = import.meta.env.VITE_SEARCHM;
@@ -8,7 +10,11 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 // Função para determinar o link de destino
 const getLinkTo = (producao) => {
-  return producao.title ? `/filmes/${producao.id}` : `/series/${producao.id}`;
+  return producao.title
+    ? `/filmes/${producao.id}`
+    : producao.name
+    ? `/series/${producao.id}`
+    : `/artigo/${producao.id}`;
 };
 
 export default function Pesquisa() {
@@ -34,14 +40,23 @@ export default function Pesquisa() {
     const searchWithQueryURLM = `${searchURLM}?${apiKey}&query=${query}`;
     const searchWithQueryURLS = `${searchURLS}?${apiKey}&query=${query}`;
 
+    // Função para filtrar artigos localmente com base na query
+    const getFilteredArticles = (query) => {
+      return artigos.filter((artigo) =>
+        artigo.title.toLowerCase().includes(query.toLowerCase())
+      );
+    };
+
     Promise.all([
       getSearchedContent(searchWithQueryURLM),
       getSearchedContent(searchWithQueryURLS),
     ])
       .then(([filmes, series]) => {
+        const filteredArtigos = getFilteredArticles(query);
         const resultadosConcatenados = [
           ...filmes.map((filme) => ({ ...filme, type: "movie" })),
           ...series.map((serie) => ({ ...serie, type: "tv" })),
+          ...filteredArtigos.map((artigo) => ({ ...artigo, type: "article" })),
         ];
         setResultados(resultadosConcatenados);
       })
@@ -53,7 +68,7 @@ export default function Pesquisa() {
 
   return (
     <>
-      <h1 className="text-26 dark:text-FF  pl-14 font-bold text-xl m-4">
+      <h1 className="text-26 dark:text-FF  pl-14 font-bold text-xl m-5">
         Resultados para: <span className="text-[#FF5733]">{query}</span>
       </h1>
       <div className="flex gap-7 flex-wrap justify-center">
@@ -73,7 +88,7 @@ export default function Pesquisa() {
                   {resultado.title || resultado.name}
                 </h1>
                 <p className="text-sm text-opacity-75 line-clamp-2 pl-3 pr-3">
-                  {resultado.overview}
+                  {resultado.overview || resultado.description}
                 </p>
                 <div className="infos flex justify-between p-3">
                   <div className="linguas flex items-center space-x-2">
@@ -81,7 +96,7 @@ export default function Pesquisa() {
                       dub
                     </span>
                     <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
-                      {resultado.original_language}
+                      {resultado.original_language || "PT"}
                     </span>
                   </div>
                   <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded text-sm flex-shrink-0">
@@ -92,7 +107,10 @@ export default function Pesquisa() {
             </Link>
           ))
         ) : (
-          <p className="text-FF">Nenhum resultado encontrado.</p>
+          <div className="flex flex-col items-center text-26 dark:text-FF py-36">
+            <p className="text-2xl font-medium">Nenhum resultado encontrado.</p>
+            <p className="text-lg">😞💔</p>
+          </div>
         )}
       </div>
     </>

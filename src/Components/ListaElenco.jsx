@@ -12,8 +12,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function ListaElenco() {
   const { id } = useParams();
-  const [filme, setFilme] = useState(null);
-  const [serie, setSerie] = useState(null);
+  const [item, setItem] = useState(null);
   const [credits, setCredits] = useState({
     cast: [],
     crew: [],
@@ -39,45 +38,34 @@ export default function ListaElenco() {
           fetch(creditsSUrl),
         ]);
 
-        if (
-          !movieResponse.ok ||
-          !serieResponse.ok ||
-          !creditsMResponse.ok ||
-          !creditsSResponse.ok
-        ) {
-          throw new Error("Failed to fetch movie details");
-        }
-
+        // Obtendo os dados das respostas
         const [movieData, serieData, creditsMData, creditsSData] =
           await Promise.all([
-            movieResponse.json(),
-            serieResponse.json(),
-            creditsMResponse.json(),
-            creditsSResponse.json(),
+            movieResponse.ok ? movieResponse.json() : null,
+            serieResponse.ok ? serieResponse.json() : null,
+            creditsMResponse.ok ? creditsMResponse.json() : null,
+            creditsSResponse.ok ? creditsSResponse.json() : null,
           ]);
 
-        if (movieData.id) {
-          setFilme(movieData);
+        // Prioridade para o filme, se disponível
+        if (movieData && movieData.id) {
+          setItem(movieData);
           setCredits(creditsMData);
-        }
-
-        if (serieData.id) {
-          setSerie(serieData);
+        } else if (serieData && serieData.id) {
+          setItem(serieData);
           setCredits(creditsSData);
         }
       } catch (error) {
-        console.error("Erro ao buscar detalhes do filme:", error);
+        console.error("Erro ao buscar detalhes:", error);
       }
     };
 
     fetchDetails();
   }, [id]);
 
-  if (!filme && !serie) {
+  if (!item) {
     return <div>Loading...</div>;
   }
-
-  const item = filme || serie;
 
   return (
     <>
@@ -104,11 +92,11 @@ export default function ListaElenco() {
               </h1>
             </div>
             <Link
-              to={`/${filme ? "filmes" : "series"}/${item.id}`}
+              to={`/${item.title ? "filmes" : "series"}/${item.id}`}
               key={item.id}
             >
               <p className="text-FF text-opacity-75 text-lg">
-                ← Voltar {filme ? "ao filme" : "à série"}
+                ← Voltar {item.title ? "ao filme" : "à série"}
               </p>
             </Link>
           </div>

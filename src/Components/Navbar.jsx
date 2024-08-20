@@ -18,6 +18,9 @@ export default function Navbar() {
           <Link to="noticias">Notícias</Link>
         </li>
         <li>
+          <Link to="contato">Contato</Link>
+        </li>
+        <li>
           <Link to="sobre">Sobre</Link>
         </li>
         <TrocarTema />

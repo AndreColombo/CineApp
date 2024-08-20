@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 import CardElenco from "../Components/CardElenco";
 
 const imagesURL = import.meta.env.VITE_IMG;
@@ -95,15 +96,74 @@ export default function ComprarIngresso() {
   const [numeroCartao, setNumeroCartao] = useState("");
   const [validade, setValidade] = useState("");
   const [cvv, setCvv] = useState("");
+  const [preco, setPreco] = useState("");
 
-  const handleSubmit = (e) => {
+  const calcularPreco = (tipoIngresso, quantidade) => {
+    let precoUnitario = 0;
+    if (tipoIngresso === "VIP") precoUnitario = 75;
+    else if (tipoIngresso === "Comum") precoUnitario = 50;
+    else if (tipoIngresso === "Meia") precoUnitario = 25;
+
+    return precoUnitario * quantidade;
+  };
+
+  useEffect(() => {
+    const precoCalculado = calcularPreco(tipoIngresso, quantidade);
+    setPreco(precoCalculado);
+  }, [tipoIngresso, quantidade]);
+
+  function sendEmail(e) {
     e.preventDefault();
+
+    if (
+      name === "" ||
+      email === "" ||
+      tipoIngresso === "" ||
+      quantidade === "" ||
+      numeroCartao === "" ||
+      validade === "" ||
+      cvv === ""
+    ) {
+      alert("Nem todos os campos foram preenchidos");
+      return;
+    }
+
     localStorage.setItem("name", name);
     localStorage.setItem("email", email);
     localStorage.setItem("tipoIngresso", tipoIngresso);
     localStorage.setItem("quantidade", quantidade);
-    navigate("/confirmacao");
-  };
+    localStorage.setItem("preco", preco);
+
+    const templateParams = {
+      from_name: name,
+      email: email,
+      ticket: tipoIngresso,
+      qntd: quantidade,
+      preco: preco,
+    };
+
+    emailjs
+      .send(
+        "service_hdmgwwi",
+        "template_ao8zg9a",
+        templateParams,
+        "PmD3D2WM3cQCWNZNA"
+      )
+      .then(
+        (response) => {
+          console.log("EMAIL ENVIADO", response.status, response.text);
+          setName("");
+          setEmail("");
+          setTipoIngresso("");
+          setQuantidade("");
+          setPreco("");
+          navigate("/confirmacao");
+        },
+        (err) => {
+          console.log("ERRO: ", err);
+        }
+      );
+  }
 
   return (
     <div
@@ -240,44 +300,44 @@ export default function ComprarIngresso() {
       </div>
       {credits.cast.length > 0 && <CardElenco elenco={credits.cast} />}
 
-      <div className="pl-14">
+      <div className="flex flex-col pl-14 m-5">
         <h1 className="font-bold text-xl my-5">Comprar Ingressos</h1>
-        <form onSubmit={handleSubmit} className="flex flex-row">
-          <div className="flex flex-col">
-            <div>
+        <form onSubmit={sendEmail} className="flex flex-row justify-between">
+          <div className="flex flex-col items-end">
+            <div className="mb-2">
               <label>
                 Nome:
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
                   required
                 />
               </label>
             </div>
-            <div>
+            <div className="mb-2">
               <label>
                 E-mail:
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
                   placeholder="exemplo@gmail.com"
                   required
                 />
               </label>
             </div>
           </div>
-          <div className="flex flex-col items-center">
-            <div>
+          <div className="flex flex-col items-end">
+            <div className="mb-2">
               <label>
                 Tipo de ingresso:
                 <select
                   value={tipoIngresso}
                   onChange={(e) => setTipoIngresso(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
                 >
                   <option value="">Selecione</option>
                   <option value="VIP">VIP - R$75,00</option>
@@ -286,80 +346,81 @@ export default function ComprarIngresso() {
                 </select>
               </label>
             </div>
-            <div>
-              <label>
-                Idioma:
-                <select
-                  value={idioma}
-                  onChange={(e) => setIdioma(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
-                >
-                  <option value="">Selecione</option>
-                  <option value="dub">Dublado</option>
-                  <option value="leg">Legendado</option>
-                </select>
-              </label>
-            </div>
-            <div>
+            <div className="mb-2">
               <label>
                 Quantidade:
                 <input
                   type="number"
                   value={quantidade}
                   onChange={(e) => setQuantidade(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
                   min="1"
                 />
               </label>
             </div>
+            <div>
+              <label>
+                Idioma:
+                <select
+                  value={idioma}
+                  onChange={(e) => setIdioma(e.target.value)}
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
+                >
+                  <option value="dub">Dublado</option>
+                  <option value="leg">Legendado</option>
+                </select>
+              </label>
+            </div>
           </div>
           <div className="flex flex-col items-end">
-            <div>
+            <div className="mb-2">
               <label>
                 Número do cartão:
                 <input
                   type="text"
                   value={numeroCartao}
                   onChange={(e) => setNumeroCartao(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
                   placeholder="xxxx xxxx xxxx xxxx"
                   required
                 />
               </label>
             </div>
-            <div>
+            <div className="mb-2">
               <label>
                 Validade:
                 <input
                   type="text"
                   value={validade}
                   onChange={(e) => setValidade(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
                   placeholder="xx/xx"
                   required
                 />
               </label>
             </div>
-            <div>
+            <div className="mb-1">
               <label>
                 CVV:
                 <input
                   type="text"
                   value={cvv}
                   onChange={(e) => setCvv(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733]"
+                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
                   placeholder="xxx"
                   required
                 />
               </label>
             </div>
           </div>
-          <button
-            type="submit"
-            className="bg-B0 text-FF font-medium h-10 p-1 rounded uppercase text-sm"
-          >
-            Confirmar Compra
-          </button>
+          <div className="flex items-end">
+            <button
+              type="submit"
+              className="bg-B0 text-FF font-medium h-10 p-1 rounded uppercase text-sm"
+            >
+              Confirmar Compra
+            </button>
+          </div>
         </form>
       </div>
     </div>

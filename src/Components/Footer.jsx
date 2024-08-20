@@ -14,23 +14,6 @@ export default function Footer() {
             </p>
           </div>
           <div className="w-full md:w-1/4 mb-4 md:mb-0">
-            <h3 className="text-lg font-semibold mb-2">Links</h3>
-            <ul className="text-sm">
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="filmes">Filmes</Link>
-              </li>
-              <li>
-                <Link to="noticias">Notícias</Link>
-              </li>
-              <li>
-                <Link to="sobre">Sobre</Link>
-              </li>
-            </ul>
-          </div>
-          <div className="w-full md:w-1/4 mb-4 md:mb-0">
             <h3 className="text-lg font-semibold mb-2">Sobre</h3>
             <p className="text-sm">
               AndreFlix é um site dedicado a fornecer informações atualizadas

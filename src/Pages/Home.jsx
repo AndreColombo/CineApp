@@ -61,7 +61,7 @@ export default function Home() {
           {nowPlaying.map((nowPlaying) => (
             <div
               key={nowPlaying.id}
-              className="bg-D0 dark:bg-18 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
+              className="bg-DF dark:bg-18 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
             >
               <Link to={`ingresso/${nowPlaying.id}`} className="flex">
                 <img
@@ -115,7 +115,7 @@ export default function Home() {
           {upcoming.map((upcoming) => (
             <div
               key={upcoming.id}
-              className="bg-D0 dark:bg-18 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75  flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
+              className="bg-DF dark:bg-18 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75  flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
             >
               <Link to={`filmes/${upcoming.id}`} className="flex">
                 <img

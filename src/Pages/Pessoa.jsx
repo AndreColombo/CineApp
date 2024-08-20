@@ -73,7 +73,7 @@ export default function Pessoa() {
 
   return (
     <div className="px-28 py-10 flex gap-5">
-      <div className="text-26 dark:text-FF bg-D0 dark:bg-18 p-1 rounded-xl flex flex-col justify-center">
+      <div className="text-26 dark:text-FF bg-DF dark:bg-18 p-1 rounded-xl flex flex-col justify-center">
         <img
           src={
             pessoa.profile_path

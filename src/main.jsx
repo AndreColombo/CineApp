@@ -16,6 +16,7 @@ import FilmesPessoa from "./Pages/FilmesPessoa.jsx";
 import Noticias from "./Pages/Noticias.jsx";
 import Noticia from "./Pages/Noticia.jsx";
 import Sobre from "./Pages/Sobre.jsx";
+import Contato from "./Pages/Contato.jsx";
 import ComprarIngresso from "./Pages/ComprarIngresso.jsx";
 import Confirmacao from "./Pages/Confirmacao.jsx";
 import PageNotFound from "./Pages/PageNotFound.jsx";
@@ -41,6 +42,7 @@ root.render(
           <Route path="noticias" element={<Noticias />} />
           <Route path="noticias/:id" element={<Noticia />} />
           <Route path="sobre" element={<Sobre />} />
+          <Route path="contato" element={<Contato />} />
           <Route path="pesquisa" element={<Pesquisa />} />
           <Route path="ingresso/:id" element={<ComprarIngresso />} />
           <Route

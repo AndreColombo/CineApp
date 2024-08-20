@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import data from "../../artigos.json";
+import noticias from "../../artigos.json";
+import propagandas from "../../propagandas.json";
 
 export default function Noticia() {
   const { id } = useParams();
-  const noticia = data.find((noticia) => noticia.id === id);
-  const noticiasLimitadas = data.slice(7, 12);
+  const noticia = noticias.find((noticia) => noticia.id === id);
+  const propaganda = propagandas.find((propaganda) => propaganda.id === id);
+  const noticiasLimitadas = noticias.slice(6);
 
   if (!noticia) {
     return (
@@ -27,31 +29,22 @@ export default function Noticia() {
   return (
     <div className="">
       <div className="flex p-5">
-        {/* ------------------------------ Outras Coisas ------------------------------ */}
-        <div className="flex flex-col rounded m-3 p-5 bg-D0 dark:bg-18 w-3/12">
-          <h1 className="text-26 dark:text-FF font-bold text-lg">
-            Leia Também:
-          </h1>
-          {noticiasLimitadas.map((noticia) => (
+        {/* ------------------------------ Propagandas ------------------------------ */}
+        <div className="flex flex-col rounded m-3 p-5 bg-DF dark:bg-18 w-3/12">
+          {propagandas.map((propaganda) => (
             <div
-              key={noticia.id}
-              className="flex flex-col rounded mx-3 m-4 p-3 bg-FF dark:bg-26"
+              key={propaganda.id}
+              className="flex flex-col rounded mx-1 m-4"
             >
-              <Link to={`/noticias/${noticia.id}`}>
-                <img className="rounded w-full" src={noticia.image} />
-                <h1 className="text-26 dark:text-FF font-bold text-lg line-clamp-1 my-1">
-                  {noticia.title}
-                </h1>
-                <p className="line-clamp-3 text-26 dark:text-FF">
-                  {noticia.text}
-                </p>
+              <Link to={`${propaganda.link}`}>
+                <img className="rounded w-full" src={propaganda.img} />
               </Link>
             </div>
           ))}
         </div>
 
         {/* ------------------------------ Notícia Principal ------------------------------ */}
-        <div className="flex flex-col rounded-lg m-3 p-5 bg-D0 dark:bg-18 w-7/12">
+        <div className="flex flex-col rounded-lg m-3 p-5 bg-DF dark:bg-18 w-7/12">
           <h1 className="text-26 dark:text-FF font-bold text-xl line-clamp-2 mb-2">
             {noticia.title}
           </h1>
@@ -71,7 +64,7 @@ export default function Noticia() {
         </div>
 
         {/* ------------------------------ Outras Notícias ------------------------------ */}
-        <div className="flex flex-col rounded m-3 p-5 bg-D0 dark:bg-18 w-3/12">
+        <div className="flex flex-col rounded m-3 p-5 bg-DF dark:bg-18 w-3/12">
           <h1 className="text-26 dark:text-FF font-bold text-lg">
             Leia Também:
           </h1>

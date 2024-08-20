@@ -34,16 +34,6 @@
 
   {
     "id": "noticia-4",
-    "data": "23 de jun. de 2024",
-    "hora": "às 22:00",
-    "autor": "Eduardo Silva",
-    "title": "TIRAR Acusações contra Sob as Águas do Sena: Produtores do filme da Netflix devem ir a tribunal",
-    "image": "/Sob-Águas-Sena.jpg",
-    "text": "Um tubarão em Paris: Essa é a história de Sob as Águas do Sena. Mas será que os criadores realmente fizeram o enredo sozinhos? Há acusações de plágio.",
-    "noticia": "O suspense Sob as Águas do Sena ficou no topo das paradas da Netflix nas últimas semanas. No entanto, nem tudo são flores para a equipe de produção. Há meses, o filme francês vem sendo acompanhado por uma acusação em seu país de origem: a de que a história foi roubada sem dar os créditos ao criador. \n\n O autor da acusação é o escritor e diretor Vincent Dietschy, que apresentou sua versão das coisas em uma reportagem do Le Monde. Dietschy começou a trabalhar em um projeto chamado Silure, que significa “bagre”, em 2011. A ideia do filme planejado está registrada em documentos de 2014 e diz o seguinte: \n\n “Uma jovem policial que trabalha como mergulhadora na brigada fluvial de Paris se depara com um novo tipo de fenômeno natural, representado por um bagre gigantesco, terrivelmente agressivo e que mata homens. Como o monstro causa pânico na capital e ameaça as políticas do prefeito poucos dias antes da decisão sobre qual cidade sediará os Jogos Olímpicos, a heroína está na linha de frente para enfrentar esse novo tipo de mal. Em sua luta, ela conta com o apoio de um jovem ictiólogo do CNRS e, ao mesmo tempo, se aproxima de seu superior, o comandante.” \n\n Já sinopse oficial de Sob as Águas do Sena é a seguinte: \n\n “É o verão de 2024 e Paris está sediando o Campeonato Mundial de Triatlo no Sena pela primeira vez. Sophia, uma cientista brilhante, fica sabendo pelo jovem ativista ambiental Mika que um tubarão gigante está à espreita nas profundezas do rio. Se quiserem evitar um banho de sangue no coração da cidade, eles não terão escolha a não ser cooperar com Adil, o chefe da brigada fluvial da polícia de Paris.” \n\n A história de Sob as Águas do Sena tem paralelos com Silure. O filme de Xavier Gens é sobre um tubarão e a heroína não é uma policial, mas uma cientista. Há os seguintes paralelos: \n\n De acordo com suas próprias declarações, Dietschy não conseguiu obter financiamento para Silure e o roteiro não foi concluído. Em 2022, ele descobriu o projeto da Netflix com o título provisório Sharks, que depois se tornou Sob as Águas do Sena. Após várias tentativas de contato, Dietschy decidiu entrar com uma ação judicial. \n\n Ele entrou com um processo por concorrência desleal contra os produtores e um agente. Ele também está buscando procedimentos para bloquear a transmissão do filme até que se chegue a um veredicto, conforme relata o Le Monde. \n\n No último dia 14 de junho foi realizada uma audiência sobre o tema, informa o site Nice-Matin. \n\n O produtor Edouard Duprey negou as acusações ao Le Monde: “Não conheço esse senhor. Nunca li ou vi seu projeto... Não há nada aí”. \n\n O diretor Xavier Gens, que esteve envolvido no roteiro, disse ao Nice-Matin que tais acusações são feitas o tempo todo: \n\n “[Dietschy] é alguém que teve uma ideia para um roteiro. Nós fizemos um filme. Nós realmente nos esforçamos para torná-lo crível, e conseguimos. Mas acho que [os outros] não escreveram uma página sequer. Portanto, é fácil dizer que teve a ideia. Isso acontece o tempo todo. Sinto que está se tornando um clichê.” \n\n As próximas semanas mostrarão o andamento do processo. Sob as Águas do Sena ainda está disponível no catálogo da Netflix."
-  },
-  {
-    "id": "noticia-5",
     "data": "25 de jun. de 2024",
     "hora": "às 14:37",
     "autor": "Bruno Botelho",
@@ -54,7 +44,7 @@
   },
 
   {
-    "id": "noticia-6",
+    "id": "noticia-5",
     "data": "25 de jun. de 2024",
     "hora": "às 18:45",
     "autor": "Iris Dias",
@@ -65,7 +55,7 @@
   },
 
   {
-    "id": "noticia-7",
+    "id": "noticia-6",
     "data": "26 de jun. de 2024",
     "hora": "às 08:00",
     "autor": "Ana Pilato",
@@ -76,7 +66,7 @@
   },
 
   {
-    "id": "noticia-8",
+    "id": "noticia-7",
     "data": "27 de jun. de 2024",
     "hora": "às 17:23",
     "autor": "Diego Souza",
@@ -87,7 +77,7 @@
   },
 
   {
-    "id": "noticia-9",
+    "id": "noticia-8",
     "data": "27 de jun. de 2024",
     "hora": "às 13:30",
     "autor": "Júlia Barbosa",
@@ -98,7 +88,7 @@
   },
 
   {
-    "id": "noticia-10",
+    "id": "noticia-9",
     "data": "28 de jun. de 2024",
     "hora": "às 09:00",
     "autor": "Giovanni Rodrigues",
@@ -109,7 +99,7 @@
   },
 
   {
-    "id": "noticia-11",
+    "id": "noticia-10",
     "data": "28 de jun. de 2024",
     "hora": "às 10:20",
     "autor": "Stephany Mariano",
@@ -120,7 +110,7 @@
   },
 
   {
-    "id": "noticia-12",
+    "id": "noticia-11",
     "data": "1 de jul. de 2024",
     "hora": "às 21:30",
     "autor": "Evelyn Souza",
