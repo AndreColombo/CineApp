@@ -6,9 +6,6 @@ export default function Navbar() {
     <nav>
       <ul className="flex gap-5 text-lg items-center">
         <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
           <Link to="filmes">Filmes</Link>
         </li>
         <li>

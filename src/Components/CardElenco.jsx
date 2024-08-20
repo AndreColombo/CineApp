@@ -5,7 +5,7 @@ const imagesURL = import.meta.env.VITE_IMG;
 
 // Função para determinar o link de destino
 const getLinkTo = (producao) => {
-  if (!producao) return "./PageNotFound";
+  if (!producao) return "./elenco";
   return producao.title
     ? `/filmes/${producao.id}/elenco`
     : `/series/${producao.id}/elenco`;
