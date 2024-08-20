@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import artigos from "../../artigos.json";
 
 // Criando consts para facilitar o acesso á dados necessários
 const imagesURL = import.meta.env.VITE_IMG;
@@ -72,7 +73,9 @@ export default function Home() {
                 <div className="p-4 flex flex-col justify-between">
                   <div>
                     <div className="flex justify-between">
-                      <h1 className="text-lg font-bold">{nowPlaying.title}</h1>
+                      <h1 className="text-lg font-bold line-clamp-1 w-44">
+                        {nowPlaying.title}
+                      </h1>
                       <div>
                         <span className="bg-FF dark:bg-black text-26 text-opacity-80 dark:text-FF dark:text-opacity-80 font-medium p-1 rounded text-xs flex-shrink-0">
                           00+
@@ -115,7 +118,7 @@ export default function Home() {
           {upcoming.map((upcoming) => (
             <div
               key={upcoming.id}
-              className="bg-DF dark:bg-18 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75  flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
+              className="bg-DF dark:bg-18 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 flex-shrink-0 flex max-w-md overflow-hidden rounded-lg"
             >
               <Link to={`filmes/${upcoming.id}`} className="flex">
                 <img
@@ -126,7 +129,9 @@ export default function Home() {
                 <div className="p-4 flex flex-col justify-between">
                   <div>
                     <div className="flex justify-between">
-                      <h1 className="text-lg font-bold">{upcoming.title}</h1>
+                      <h1 className="text-lg font-bold line-clamp-1 w-44">
+                        {upcoming.title}
+                      </h1>
                       <div>
                         <span className="bg-FF dark:bg-black text-26 text-opacity-80 dark:text-FF dark:text-opacity-80 font-medium p-1 rounded text-xs">
                           00+
@@ -154,6 +159,41 @@ export default function Home() {
         </div>
       </div>
       {/* ---------------------------------------------------------------------------------------- */}
+
+      <h1 className="text-26 dark:text-FF pl-14 font-bold text-xl mt-4">
+        Notícias Recentes
+      </h1>
+
+      {/* --------------------- Scroll de filmes 2: Filmes Próximas Estreias --------------------- */}
+      <div className="p-5">
+        <div className="flex gap-5 overflow-x-auto custom-scrollbar pb-1">
+          {/* Mapeando o JSON de notícias */}
+          {artigos
+            .slice(21, 31)
+            .reverse()
+            .map((noticia) => (
+              <div
+                key={noticia.id}
+                className="flex-shrink-0 rounded-lg p-3 bg-DF dark:bg-18 w-3/12"
+              >
+                <Link to={`noticias/${noticia.id}`} className="flex flex-col">
+                  <img className="rounded" src={noticia.image} />
+                  <h1 className="text-26 dark:text-FF font-bold text-lg line-clamp-1 my-2">
+                    {noticia.title}
+                  </h1>
+                  <p className="line-clamp-3 text-26 text-opacity-90 dark:text-FF dark:text-opacity-90">
+                    {noticia.text}
+                  </p>
+                  <div className="flex-grow"></div>
+                  <div className="flex flex-row justify-between text-26 text-opacity-70 dark:text-FF dark:text-opacity-70 text-sm mt-5">
+                    <p>{noticia.data}</p>
+                    <p>{noticia.autor}</p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+        </div>
+      </div>
     </>
   );
 }

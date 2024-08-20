@@ -14,7 +14,7 @@ const getLinkTo = (producao) => {
     ? `/filmes/${producao.id}`
     : producao.name
     ? `/series/${producao.id}`
-    : `/artigo/${producao.id}`;
+    : `/noticias/${producao.id}`;
 };
 
 export default function Pesquisa() {
@@ -41,7 +41,7 @@ export default function Pesquisa() {
     const searchWithQueryURLS = `${searchURLS}?${apiKey}&query=${query}`;
 
     // Função para filtrar artigos localmente com base na query
-    const getFilteredArticles = (query) => {
+    const getArtigosFiltrados = (query) => {
       return artigos.filter((artigo) =>
         artigo.title.toLowerCase().includes(query.toLowerCase())
       );
@@ -52,11 +52,11 @@ export default function Pesquisa() {
       getSearchedContent(searchWithQueryURLS),
     ])
       .then(([filmes, series]) => {
-        const filteredArtigos = getFilteredArticles(query);
+        const artigosFiltrados = getArtigosFiltrados(query);
         const resultadosConcatenados = [
           ...filmes.map((filme) => ({ ...filme, type: "movie" })),
           ...series.map((serie) => ({ ...serie, type: "tv" })),
-          ...filteredArtigos.map((artigo) => ({ ...artigo, type: "article" })),
+          ...artigosFiltrados.map((artigo) => ({ ...artigo, type: "article" })),
         ];
         setResultados(resultadosConcatenados);
       })
@@ -73,39 +73,70 @@ export default function Pesquisa() {
       </h1>
       <div className="flex gap-7 flex-wrap justify-center">
         {resultados.length > 0 ? (
-          resultados.map((resultado) => (
-            <Link
-              key={resultado.id}
-              to={getLinkTo(resultado)}
-              className="relative text-FF p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
-              style={{
-                backgroundImage: `url(${imagesURL}${resultado.poster_path})`,
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none"></div>
-              <div className="relative z-10 w-full">
-                <h1 className="text-FF font-bold pl-3 mb-2">
-                  {resultado.title || resultado.name}
-                </h1>
-                <p className="text-sm text-opacity-75 line-clamp-2 pl-3 pr-3">
-                  {resultado.overview || resultado.description}
-                </p>
-                <div className="infos flex justify-between p-3">
-                  <div className="linguas flex items-center space-x-2">
-                    <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
-                      dub
-                    </span>
-                    <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
-                      {resultado.original_language || "PT"}
+          resultados.map((resultado) =>
+            resultado.type === "article" ? (
+              // Renderiza o estilo de notícia
+              <div
+                key={resultado.id}
+                className="flex rounded-lg w-96 p-3 bg-DF dark:bg-18"
+              >
+                <Link
+                  to={`/noticias/${resultado.id}`}
+                  className="flex flex-col"
+                >
+                  <img
+                    className="rounded"
+                    src={resultado.image}
+                    alt={resultado.title}
+                  />
+                  <h1 className="text-26 dark:text-FF font-bold text-lg line-clamp-1 my-2">
+                    {resultado.title}
+                  </h1>
+                  <p className="line-clamp-3 text-26 text-opacity-90 dark:text-FF dark:text-opacity-90">
+                    {resultado.text}
+                  </p>
+                  <div className="flex-grow"></div>
+                  <div className="flex flex-row justify-between text-26 text-opacity-70 dark:text-FF dark:text-opacity-70 text-sm mt-5">
+                    <p>{resultado.data}</p>
+                    <p>{resultado.autor}</p>
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              // Renderiza o estilo de filme/série
+              <Link
+                key={resultado.id}
+                to={getLinkTo(resultado)}
+                className="relative text-FF p-2 w-64 h-96 flex flex-col justify-end bg-cover bg-center rounded-lg"
+                style={{
+                  backgroundImage: `url(${imagesURL}${resultado.poster_path})`,
+                }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-[#000000] to-transparent pointer-events-none rounded-lg"></div>
+                <div className="relative z-10 w-full">
+                  <h1 className="text-FF font-bold pl-3 mb-2">
+                    {resultado.title || resultado.name}
+                  </h1>
+                  <p className="text-sm text-opacity-75 line-clamp-2 pl-3 pr-3">
+                    {resultado.overview || resultado.description}
+                  </p>
+                  <div className="infos flex justify-between p-3">
+                    <div className="linguas flex items-center space-x-2">
+                      <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
+                        dub
+                      </span>
+                      <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded uppercase text-sm flex-shrink-0">
+                        {resultado.original_language || "PT"}
+                      </span>
+                    </div>
+                    <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded text-sm flex-shrink-0">
+                      00+
                     </span>
                   </div>
-                  <span className="bg-18 text-FF text-opacity-75 font-medium p-1 rounded text-sm flex-shrink-0">
-                    00+
-                  </span>
                 </div>
-              </div>
-            </Link>
-          ))
+              </Link>
+            )
+          )
         ) : (
           <div className="flex flex-col items-center text-26 dark:text-FF py-36">
             <p className="text-2xl font-medium">Nenhum resultado encontrado.</p>

@@ -7,7 +7,7 @@ export default function Noticia() {
   const { id } = useParams();
   const noticia = noticias.find((noticia) => noticia.id === id);
   const propaganda = propagandas.find((propaganda) => propaganda.id === id);
-  const noticiasLimitadas = noticias.slice(6);
+  const noticiasLimitadas = noticias.slice(27).reverse();
 
   if (!noticia) {
     return (
@@ -32,10 +32,7 @@ export default function Noticia() {
         {/* ------------------------------ Propagandas ------------------------------ */}
         <div className="flex flex-col rounded m-3 p-5 bg-DF dark:bg-18 w-3/12">
           {propagandas.map((propaganda) => (
-            <div
-              key={propaganda.id}
-              className="flex flex-col rounded mx-1 m-4"
-            >
+            <div key={propaganda.id} className="flex flex-col rounded mx-1 m-4">
               <Link to={`${propaganda.link}`}>
                 <img className="rounded w-full" src={propaganda.img} />
               </Link>
@@ -48,7 +45,9 @@ export default function Noticia() {
           <h1 className="text-26 dark:text-FF font-bold text-xl line-clamp-2 mb-2">
             {noticia.title}
           </h1>
-          <p className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 font-medium">{noticia.text}</p>
+          <p className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 font-medium">
+            {noticia.text}
+          </p>
           <img className="rounded-lg w-full my-5" src={noticia.image} />
           {textoParagrafos.map((paragraph, index) => (
             <p key={index} className="mb-3 text-26 dark:text-FF">
@@ -60,6 +59,18 @@ export default function Noticia() {
               {noticia.data} {noticia.hora}
             </p>
             <p>{noticia.autor}</p>
+          </div>
+          <div className="flex-grow"></div>
+          <div className="flex flex-row gap-1 text-26 text-opacity-75 dark:text-FF dark:text-opacity-75">
+            <p>Veja completo em:</p>
+            <a
+              className="text-blue-800 dark:text-blue-400"
+              href={`${noticia.link}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {noticia.link}
+            </a>
           </div>
         </div>
 
