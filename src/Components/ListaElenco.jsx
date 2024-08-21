@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const defaultImageF = import.meta.env.VITE_DEFAULTIMGF;
@@ -12,6 +12,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 export default function ListaElenco() {
   const { id } = useParams();
+  const location = useLocation();
   const [item, setItem] = useState(null);
   const [credits, setCredits] = useState({
     cast: [],
@@ -21,47 +22,34 @@ export default function ListaElenco() {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const movieUrl = `${moviesURL}${id}?${apiKey}`;
-        const serieUrl = `${seriesURL}${id}?${apiKey}`;
-        const creditsMUrl = `${moviesURL}${id}/credits?${apiKey}`;
-        const creditsSUrl = `${seriesURL}${id}/credits?${apiKey}`;
+        // Verifica se a URL contém "filmes" ou "series"
+        const isMovie = location.pathname.includes("filmes");
+        const itemUrl = isMovie
+          ? `${moviesURL}${id}?${apiKey}`
+          : `${seriesURL}${id}?${apiKey}`;
+        const creditsUrl = isMovie
+          ? `${moviesURL}${id}/credits?${apiKey}`
+          : `${seriesURL}${id}/credits?${apiKey}`;
 
-        const [
-          movieResponse,
-          serieResponse,
-          creditsMResponse,
-          creditsSResponse,
-        ] = await Promise.all([
-          fetch(movieUrl),
-          fetch(serieUrl),
-          fetch(creditsMUrl),
-          fetch(creditsSUrl),
+        const [itemResponse, creditsResponse] = await Promise.all([
+          fetch(itemUrl),
+          fetch(creditsUrl),
         ]);
 
-        // Obtendo os dados das respostas
-        const [movieData, serieData, creditsMData, creditsSData] =
-          await Promise.all([
-            movieResponse.ok ? movieResponse.json() : null,
-            serieResponse.ok ? serieResponse.json() : null,
-            creditsMResponse.ok ? creditsMResponse.json() : null,
-            creditsSResponse.ok ? creditsSResponse.json() : null,
-          ]);
+        const [itemData, creditsData] = await Promise.all([
+          itemResponse.ok ? itemResponse.json() : null,
+          creditsResponse.ok ? creditsResponse.json() : null,
+        ]);
 
-        // Prioridade para o filme, se disponível
-        if (movieData && movieData.id) {
-          setItem(movieData);
-          setCredits(creditsMData);
-        } else if (serieData && serieData.id) {
-          setItem(serieData);
-          setCredits(creditsSData);
-        }
+        setItem(itemData);
+        setCredits(creditsData);
       } catch (error) {
         console.error("Erro ao buscar detalhes:", error);
       }
     };
 
     fetchDetails();
-  }, [id]);
+  }, [id, location.pathname]);
 
   if (!item) {
     return <div>Loading...</div>;
@@ -92,11 +80,14 @@ export default function ListaElenco() {
               </h1>
             </div>
             <Link
-              to={`/${item.title ? "filmes" : "series"}/${item.id}`}
+              to={`/${
+                location.pathname.includes("filmes") ? "filmes" : "series"
+              }/${item.id}`}
               key={item.id}
             >
               <p className="text-FF text-opacity-75 text-lg">
-                ← Voltar {item.title ? "ao filme" : "à série"}
+                ← Voltar{" "}
+                {location.pathname.includes("filmes") ? "ao filme" : "à série"}
               </p>
             </Link>
           </div>
