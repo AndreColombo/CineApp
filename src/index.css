@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Cores para o tema claro */
+/* Color for the light theme */
 .custom-scrollbar {
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #b00000 #dfdfdf; /* Firefox */
@@ -28,7 +28,7 @@
   background-color: #ff5733;
 }
 
-/* Cores para o tema escuro */
+/* Colors for the dark theme */
 .dark .custom-scrollbar {
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #b00000 #181818; /* Firefox */

@@ -10,6 +10,7 @@ export default {
         DF: "#DFDFDF",
         FF: "#FFFFFF",
         B0: "#B00000",
+        E4: "#E4335A",
       },
     },
   },

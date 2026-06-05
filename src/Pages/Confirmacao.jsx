@@ -36,11 +36,11 @@ export default function Confirmacao() {
   }, [id, moviesURL, apiKey]); // Adicionando dependências no useEffect
 
   return (
-    <div className="text-26 dark:text-FF p-20 py-20">
-      <h1 className="font-bold text-2xl my-5">Confirmação da Compra</h1>
-      <p className="text-lg mb-2">Obrigado pela sua compra, {name}!</p>
-      <hr className="border-[#FF5733]" />
-      <p className="text-lg my-1">Detalhes da compra:</p>
+    <div className='p-20 py-20 text-26 dark:text-FF'>
+      <h1 className='my-5 text-2xl font-bold'>Confirmação da Compra</h1>
+      <p className='mb-2 text-lg'>Obrigado pela sua compra, {name}!</p>
+      <hr className='border-[#FF5733]' />
+      <p className='my-1 text-lg'>Detalhes da compra:</p>
       <ul>
         <li>
           {" "}
@@ -55,11 +55,9 @@ export default function Confirmacao() {
           <em>E-mail: </em>
           {email}
         </li>
-        <li className="mt-1">Preço Total: R${preco}</li>
+        <li className='mt-1'>Preço Total: R${preco}</li>
       </ul>
-      {filme && filme.backdrop_path && (
-        <img src={`${backdropURL}${filme.backdrop_path}`} alt={filme.title} />
-      )}
+      {filme && filme.backdrop_path && <img src={`${backdropURL}${filme.backdrop_path}`} alt={filme.title} />}
     </div>
   );
 }

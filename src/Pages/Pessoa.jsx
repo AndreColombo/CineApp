@@ -55,9 +55,7 @@ export default function Pessoa() {
       try {
         const res = await fetch(`${pessoaURL}${id}/movie_credits?${apiKey}`);
         const data = await res.json();
-        const filmesOrdenados = data.cast.sort(
-          (a, b) => b.popularity - a.popularity
-        );
+        const filmesOrdenados = data.cast.sort((a, b) => b.popularity - a.popularity);
 
         setFilmes(filmesOrdenados);
       } catch (error) {
@@ -72,76 +70,52 @@ export default function Pessoa() {
   if (!pessoa) return <div>Carregando...</div>;
 
   return (
-    <div className="px-28 py-10 flex gap-5">
-      <div className="text-26 dark:text-FF bg-DF dark:bg-18 p-1 rounded-xl flex flex-col justify-center">
-        <img
-          src={
-            pessoa.profile_path
-              ? `${imagesURL}${pessoa.profile_path}`
-              : defaultImageH
-          }
-          alt={pessoa.name}
-          className="rounded-lg mb-5"
-          style={{ height: "28rem" }}
-        />
-        <h1 className="font-semibold text-xl mb-2">Informações pessoais</h1>
-        <div className="mb-4 ml-1">
-          <h1 className="font-medium">Conhecido(a) por</h1>
+    <div className='flex gap-5 px-28 py-10'>
+      <div className='flex flex-col justify-center rounded-xl bg-DF p-1 text-26 dark:bg-18 dark:text-FF'>
+        <img src={pessoa.profile_path ? `${imagesURL}${pessoa.profile_path}` : defaultImageH} alt={pessoa.name} className='mb-5 rounded-lg' style={{ height: "28rem" }} />
+        <h1 className='mb-2 text-xl font-semibold'>Informações pessoais</h1>
+        <div className='mb-4 ml-1'>
+          <h1 className='font-medium'>Conhecido(a) por</h1>
           <p>{pessoa.known_for_department}</p>
         </div>
-        <div className="mb-4 ml-1">
-          <h1 className="font-medium">Gênero</h1>
+        <div className='mb-4 ml-1'>
+          <h1 className='font-medium'>Gênero</h1>
           <p>{mapGender(pessoa.gender)}</p>
         </div>
-        <div className="mb-4 ml-1">
-          <h1 className="font-medium">Nascimento</h1>
+        <div className='mb-4 ml-1'>
+          <h1 className='font-medium'>Nascimento</h1>
           <p>{formatarData(pessoa.birthday)}</p>
         </div>
-        <div className="mb-4 ml-1">
-          <h1 className="font-medium">Local de nascimento (em inglês)</h1>
+        <div className='mb-4 ml-1'>
+          <h1 className='font-medium'>Local de nascimento (em inglês)</h1>
           <p>{pessoa.place_of_birth}</p>
         </div>
       </div>
 
-      <div className="flex flex-col w-3/4">
-        <div className="text-26 dark:text-FF flex flex-col justify-evenly">
-          <h1 className="font-bold text-3xl mb-5">{pessoa.name}</h1>
-          <div className="mb-5">
-            <p className="font-medium text-lg mb-1">Biografia</p>
-            <p className="font-light">{pessoa.biography}</p>
+      <div className='flex w-3/4 flex-col'>
+        <div className='flex flex-col justify-evenly text-26 dark:text-FF'>
+          <h1 className='mb-5 text-3xl font-bold'>{pessoa.name}</h1>
+          <div className='mb-5'>
+            <p className='mb-1 text-lg font-medium'>Biografia</p>
+            <p className='font-light'>{pessoa.biography}</p>
           </div>
-          <div className="flex flex-col">
-            <h1 className="font-medium text-lg mb-1">Conhecido(a) por</h1>
-            <div className="overflow-x-auto custom-scrollbar pb-1">
-              <div className="flex gap-1">
+          <div className='flex flex-col'>
+            <h1 className='mb-1 text-lg font-medium'>Conhecido(a) por</h1>
+            <div className='custom-scrollbar overflow-x-auto pb-1'>
+              <div className='flex gap-1'>
                 {filmesLimitado.map((filme) => (
                   <Link key={filme.id} to={`/filmes/${filme.id}`}>
-                    <div
-                      key={filme.id}
-                      className="text-26 dark:text-FF rounded-lg flex flex-col items-center w-36 flex-shrink-0"
-                      style={{ height: "auto" }}
-                    >
-                      <img
-                        src={`${imagesURL}${filme.poster_path}`}
-                        alt={filme.title}
-                        className="rounded w-32 mb-3"
-                      />
-                      <h1 className="text-center text-sm">{filme.title}</h1>
+                    <div key={filme.id} className='flex w-36 flex-shrink-0 flex-col items-center rounded-lg text-26 dark:text-FF' style={{ height: "auto" }}>
+                      <img src={`${imagesURL}${filme.poster_path}`} alt={filme.title} className='mb-3 w-32 rounded' />
+                      <h1 className='text-center text-sm'>{filme.title}</h1>
                     </div>
                   </Link>
                 ))}
                 <div>
-                  <Link
-                    to={`filmes`}
-                    className="p-2 flex rounded-lg items-center justify-center h-48 w-32 mb-3"
-                  >
-                    <span className="flex justify-center font-bold text-lg w-32">
-                      Ver Outros
-                    </span>
+                  <Link to={`filmes`} className='mb-3 flex h-48 w-32 items-center justify-center rounded-lg p-2'>
+                    <span className='flex w-32 justify-center text-lg font-bold'>Ver Outros</span>
                   </Link>
-                  <h1 className="text-center text-sm w-32">
-                    Veja mais filmes de {pessoa.name}
-                  </h1>
+                  <h1 className='w-32 text-center text-sm'>Veja mais filmes de {pessoa.name}</h1>
                 </div>
               </div>
             </div>

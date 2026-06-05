@@ -60,19 +60,13 @@ export default function DetalhesFilme() {
         const movieUrl = `${moviesURL}${id}?${apiKey}`;
         const creditsUrl = `${moviesURL}${id}/credits?${apiKey}`;
 
-        const [movieResponse, creditsResponse] = await Promise.all([
-          fetch(movieUrl),
-          fetch(creditsUrl),
-        ]);
+        const [movieResponse, creditsResponse] = await Promise.all([fetch(movieUrl), fetch(creditsUrl)]);
 
         if (!movieResponse.ok || !creditsResponse.ok) {
           throw new Error("Failed to fetch movie details");
         }
 
-        const [movieData, creditsData] = await Promise.all([
-          movieResponse.json(),
-          creditsResponse.json(),
-        ]);
+        const [movieData, creditsData] = await Promise.all([movieResponse.json(), creditsResponse.json()]);
 
         setFilme(movieData);
         setCredits(creditsData);
@@ -89,7 +83,7 @@ export default function DetalhesFilme() {
 
   return (
     <div
-      className="fundo"
+      className='fundo'
       style={{
         position: "relative",
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(${backdropURL}${filme.backdrop_path})`,
@@ -100,84 +94,64 @@ export default function DetalhesFilme() {
         minHeight: "100vh",
         color: "white",
         padding: "20px",
-      }}
-    >
-      <div className="flex flex-row p-10 pt-4 justify-between">
-        <img
-          className="rounded h-96"
-          src={
-            filme.poster_path
-              ? `${imagesURL}${filme.poster_path}`
-              : defaultImageF
-          }
-          alt={filme.title}
-        />
-        <div className="flex flex-col justify-evenly pl-5">
+      }}>
+      <div className='flex flex-row justify-between p-10 pt-4'>
+        <img className='h-96 rounded' src={filme.poster_path ? `${imagesURL}${filme.poster_path}` : defaultImageF} alt={filme.title} />
+        <div className='flex flex-col justify-evenly pl-5'>
           <div>
-            <div className="flex gap-2">
-              <h1 className="font-bold text-3xl">{filme.title}</h1>
-              <h1 className="text-3xl">
-                {" "}
-                (
-                {filme.release_date
-                  ? new Date(filme.release_date).getFullYear()
-                  : "-"}
-                )
-              </h1>
+            <div className='flex gap-2'>
+              <h1 className='text-3xl font-bold'>{filme.title}</h1>
+              <h1 className='text-3xl'> ({filme.release_date ? new Date(filme.release_date).getFullYear() : "-"})</h1>
             </div>
 
-            <div className="flex gap-3">
+            <div className='flex gap-3'>
               <p>{formatarData(filme.release_date)} (BR)</p>
               <p>-</p>
-              <p className="text-FF">
-                {filme.genres.map((genre) => genre.name).join(", ")}
-              </p>
+              <p className='text-FF'>{filme.genres.map((genre) => genre.name).join(", ")}</p>
               <p>-</p>
               <p>{formatarRuntime(filme.runtime)}</p>
             </div>
-            <div
-              className={`h-14 w-14 mt-2 rounded-full flex justify-center items-center bg-18 border-2 ${borderColorClass}`}
-            >
-              <p className="font-semibold">{String(avaliacao)}</p>
-              <p className="font-light">%</p>
+            <div className={`mt-2 flex h-14 w-14 items-center justify-center rounded-full border-2 bg-18 ${borderColorClass}`}>
+              <p className='font-semibold'>{String(avaliacao)}</p>
+              <p className='font-light'>%</p>
             </div>
           </div>
 
           <div>
-            <p className="text-FF text-opacity-75 my-2">{filme.tagline}</p>
+            <p className='my-2 text-FF text-opacity-75'>{filme.tagline}</p>
 
-            <div className="flex gap-1 flex-col">
-              <h1 className="font-medium text-lg">Sinopse</h1>
-              <p className="font-light">{filme.overview}</p>
+            <div className='flex flex-col gap-1'>
+              <h1 className='text-lg font-medium'>Sinopse</h1>
+              <p className='font-light'>{filme.overview}</p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col backdrop-blur-md p-5 justify-evenly">
-          <div className="pb-3">
-            <h1 className="font-semibold">Título original</h1>
-            <p className="pl-1">{filme.original_title}</p>
+        <div className='flex flex-col justify-evenly p-5 backdrop-blur-md'>
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Título original</h1>
+            <p className='pl-1'>{filme.original_title}</p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Situação</h1>
-            <p className="pl-1">{filme.status}</p>
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Situação</h1>
+            <p className='pl-1'>{filme.status}</p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold w-28">Idioma original</h1>
-            <p className="pl-1">{filme.original_language}</p>
+          <div className='pb-3'>
+            <h1 className='w-28 font-semibold'>Idioma original</h1>
+            <p className='pl-1'>{filme.original_language}</p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Orçamento</h1>
-            <p className="pl-1">
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Orçamento</h1>
+            <p className='pl-1'>
               {filme.budget.toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
               })}
             </p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Receita</h1>
-            <p className="pl-1">
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Receita</h1>
+            <p className='pl-1'>
               {filme.revenue.toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -187,36 +161,32 @@ export default function DetalhesFilme() {
         </div>
       </div>
 
-      <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly m-10 mt-0">
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Produtora(s)</h1>
-          <p className="pl-1">
-            {filme.production_companies
-              ?.map((company) => company.name)
-              .join(", ") || "N/A"}
-          </p>
+      <div className='m-10 mt-0 flex flex-row justify-evenly p-5 backdrop-blur-xl'>
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Produtora(s)</h1>
+          <p className='pl-1'>{filme.production_companies?.map((company) => company.name).join(", ") || "N/A"}</p>
         </div>
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Diretor</h1>
-          <p className="pl-1">
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Diretor</h1>
+          <p className='pl-1'>
             {credits.crew
               ?.filter((member) => member.job === "Director")
               .map((director) => director.name)
               .join(", ") || "N/A"}
           </p>
         </div>
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Roteirista(s)</h1>
-          <p className="pl-1">
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Roteirista(s)</h1>
+          <p className='pl-1'>
             {credits.crew
               ?.filter((member) => member.job === "Screenplay")
               .map((screenplay) => screenplay.name)
               .join(", ") || "N/A"}
           </p>
         </div>
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Escritor</h1>
-          <p className="pl-1">
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Escritor</h1>
+          <p className='pl-1'>
             {credits.crew
               ?.filter((member) => member.job === "Writer")
               .map((writer) => writer.name)
@@ -224,9 +194,7 @@ export default function DetalhesFilme() {
           </p>
         </div>
       </div>
-      {credits.cast.length > 0 && (
-        <CardElenco elenco={credits.cast} producao={filme} />
-      )}
+      {credits.cast.length > 0 && <CardElenco elenco={credits.cast} producao={filme} />}
     </div>
   );
 }

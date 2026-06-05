@@ -5,9 +5,7 @@ export default function TrocarTema() {
   const [dark, setDark] = useState(() => {
     // Carregar o tema atual do localStorage
     const savedTheme = localStorage.getItem("theme");
-    return savedTheme
-      ? savedTheme === "dark"
-      : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    return savedTheme ? savedTheme === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
 
   useEffect(() => {
@@ -27,17 +25,7 @@ export default function TrocarTema() {
 
   return (
     <div>
-      {dark ? (
-        <SunIcon
-          className="w-7 h-7 text-FF cursor-pointer"
-          onClick={trocarTema}
-        />
-      ) : (
-        <MoonIcon
-          className="w-7 h-7 text-26 cursor-pointer"
-          onClick={trocarTema}
-        />
-      )}
+      {dark ? <SunIcon className='h-7 w-7 cursor-pointer text-FF' onClick={trocarTema} /> : <MoonIcon className='h-7 w-7 cursor-pointer text-26' onClick={trocarTema} />}
     </div>
   );
 }

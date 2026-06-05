@@ -24,22 +24,12 @@ export default function ListaElenco() {
       try {
         // Verifica se a URL contém "filmes" ou "series"
         const isMovie = location.pathname.includes("filmes");
-        const itemUrl = isMovie
-          ? `${moviesURL}${id}?${apiKey}`
-          : `${seriesURL}${id}?${apiKey}`;
-        const creditsUrl = isMovie
-          ? `${moviesURL}${id}/credits?${apiKey}`
-          : `${seriesURL}${id}/credits?${apiKey}`;
+        const itemUrl = isMovie ? `${moviesURL}${id}?${apiKey}` : `${seriesURL}${id}?${apiKey}`;
+        const creditsUrl = isMovie ? `${moviesURL}${id}/credits?${apiKey}` : `${seriesURL}${id}/credits?${apiKey}`;
 
-        const [itemResponse, creditsResponse] = await Promise.all([
-          fetch(itemUrl),
-          fetch(creditsUrl),
-        ]);
+        const [itemResponse, creditsResponse] = await Promise.all([fetch(itemUrl), fetch(creditsUrl)]);
 
-        const [itemData, creditsData] = await Promise.all([
-          itemResponse.ok ? itemResponse.json() : null,
-          creditsResponse.ok ? creditsResponse.json() : null,
-        ]);
+        const [itemData, creditsData] = await Promise.all([itemResponse.ok ? itemResponse.json() : null, creditsResponse.ok ? creditsResponse.json() : null]);
 
         setItem(itemData);
         setCredits(creditsData);
@@ -57,72 +47,38 @@ export default function ListaElenco() {
 
   return (
     <>
-      <div className="px-14">
-        <div className="flex text-FF bg-B0 rounded-lg gap-5 px-20 py-4 my-3 items-center">
-          <img
-            className="rounded h-24"
-            src={
-              item.poster_path
-                ? `${imagesURL}${item.poster_path}`
-                : defaultImageF
-            }
-            alt={item.title || item.name}
-          />
-          <div className="flex flex-col justify-center">
-            <div className="flex gap-2 items-center">
-              <h1 className="font-bold text-3xl">{item.title || item.name}</h1>
-              <h1 className="text-FF text-opacity-75 font-medium text-3xl">
-                (
-                {item.release_date
-                  ? new Date(item.release_date).getFullYear()
-                  : "-"}
-                )
-              </h1>
+      <div className='px-14'>
+        <div className='my-3 flex items-center gap-5 rounded-lg bg-B0 px-20 py-4 text-FF'>
+          <img className='h-24 rounded' src={item.poster_path ? `${imagesURL}${item.poster_path}` : defaultImageF} alt={item.title || item.name} />
+          <div className='flex flex-col justify-center'>
+            <div className='flex items-center gap-2'>
+              <h1 className='text-3xl font-bold'>{item.title || item.name}</h1>
+              <h1 className='text-3xl font-medium text-FF text-opacity-75'>({item.release_date ? new Date(item.release_date).getFullYear() : "-"})</h1>
             </div>
-            <Link
-              to={`/${
-                location.pathname.includes("filmes") ? "filmes" : "series"
-              }/${item.id}`}
-              key={item.id}
-            >
-              <p className="text-FF text-opacity-75 text-lg">
-                ← Voltar{" "}
-                {location.pathname.includes("filmes") ? "ao filme" : "à série"}
-              </p>
+            <Link to={`/${location.pathname.includes("filmes") ? "filmes" : "series"}/${item.id}`} key={item.id}>
+              <p className='text-lg text-FF text-opacity-75'>← Voltar {location.pathname.includes("filmes") ? "ao filme" : "à série"}</p>
             </Link>
           </div>
         </div>
 
-        <div className="flex px-20 gap-60">
+        <div className='flex gap-60 px-20'>
           <div>
-            <div className="flex flex-row gap-2 items-center">
-              <h1 className="text-26 dark:text-FF font-bold text-2xl">
-                Elenco
-              </h1>
-              <h1 className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 text-xl">
-                ({credits.cast.length})
-              </h1>
+            <div className='flex flex-row items-center gap-2'>
+              <h1 className='text-2xl font-bold text-26 dark:text-FF'>Elenco</h1>
+              <h1 className='text-xl text-26 text-opacity-75 dark:text-FF dark:text-opacity-75'>({credits.cast.length})</h1>
             </div>
-            <ol className="p-5">
+            <ol className='p-5'>
               {credits.cast.map((ator, index) => (
                 <Link to={`/pessoa/${ator.id}`} key={`cast-${index}`}>
-                  <li className="flex items-center">
+                  <li className='flex items-center'>
                     <img
-                      src={
-                        ator.profile_path
-                          ? `${imagesURL}${ator.profile_path}`
-                          : defaultImageH
-                      }
+                      src={ator.profile_path ? `${imagesURL}${ator.profile_path}` : defaultImageH}
                       alt={ator.name}
-                      className="rounded-lg w-20 h-20 object-cover mb-2 bg-18"
+                      className='mb-2 h-20 w-20 rounded-lg bg-18 object-cover text-26'
                     />
-                    <div className="pl-5">
-                      <h1 className="text-26 dark:text-FF font-semibold">
-                        {ator.name}
-                      </h1>
-                      <p className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 font-light">
-                        {ator.character}
-                      </p>
+                    <div className='pl-5'>
+                      <h1 className='font-semibold text-26 dark:text-FF'>{ator.name}</h1>
+                      <p className='font-light text-26 text-opacity-75 dark:text-FF dark:text-opacity-75'>{ator.character}</p>
                     </div>
                   </li>
                 </Link>
@@ -131,34 +87,22 @@ export default function ListaElenco() {
           </div>
 
           <div>
-            <div className="flex flex-row gap-2 items-center">
-              <h1 className="text-26 dark:text-FF font-bold text-2xl">
-                Equipe técnica
-              </h1>
-              <h1 className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 text-xl">
-                ({credits.crew.length})
-              </h1>
+            <div className='flex flex-row items-center gap-2'>
+              <h1 className='text-2xl font-bold text-26 dark:text-FF'>Equipe técnica</h1>
+              <h1 className='text-xl text-26 text-opacity-75 dark:text-FF dark:text-opacity-75'>({credits.crew.length})</h1>
             </div>
-            <ol className="p-5">
+            <ol className='p-5'>
               {credits.crew.map((equipe, index) => (
                 <Link to={`/pessoa/${equipe.id}`} key={`crew-${index}`}>
-                  <li className="flex items-center">
+                  <li className='flex items-center'>
                     <img
-                      src={
-                        equipe.profile_path
-                          ? `${imagesURL}${equipe.profile_path}`
-                          : defaultImageH
-                      }
+                      src={equipe.profile_path ? `${imagesURL}${equipe.profile_path}` : defaultImageH}
                       alt={equipe.name}
-                      className="rounded-lg w-20 h-20 object-cover mb-2 bg-18"
+                      className='mb-2 h-20 w-20 rounded-lg bg-18 object-cover text-26'
                     />
-                    <div className="pl-5">
-                      <h1 className="text-26 dark:text-FF font-semibold">
-                        {equipe.name}
-                      </h1>
-                      <p className="text-26 text-opacity-75 dark:text-FF dark:text-opacity-75 font-light">
-                        {equipe.job}
-                      </p>
+                    <div className='pl-5'>
+                      <h1 className='font-semibold text-26 dark:text-FF'>{equipe.name}</h1>
+                      <p className='font-light text-26 text-opacity-75 dark:text-FF dark:text-opacity-75'>{equipe.job}</p>
                     </div>
                   </li>
                 </Link>

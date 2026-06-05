@@ -16,17 +16,17 @@ export default function Header() {
   };
 
   return (
-    <header className="flex text-26 dark:text-FF p-8 px-14 justify-between items-center">
-      <Link to="/">
-        <img src="/./AndreFlix.png" alt="AndreFlix" width={150} />
+    <header className='flex items-center justify-between p-8 px-14 text-26 dark:text-FF'>
+      <Link to='/'>
+        <img src='/./AndreFlix.png' alt='AndreFlix' width={150} />
       </Link>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='w-1/3'>
         <input
-          type="text"
-          placeholder="Pesquisar Filmes"
+          type='text'
+          placeholder='Pesquisar Filmes'
           onChange={(e) => setSearch(e.target.value)}
           value={search}
-          className="w-96 rounded p-1 bg-FF dark:bg-26 border border-[#FF5733]"
+          className='w-full rounded border border-[#FF5733] bg-FF p-1 dark:bg-26'
         />
       </form>
       <Navbar />

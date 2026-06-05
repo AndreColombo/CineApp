@@ -4,21 +4,21 @@ import TrocarTema from "./TrocarTema";
 export default function Navbar() {
   return (
     <nav>
-      <ul className="flex gap-5 text-lg items-center">
+      <ul className='flex items-center gap-5 text-lg'>
         <li>
-          <Link to="filmes">Filmes</Link>
+          <Link to='filmes'>Filmes</Link>
         </li>
         <li>
-          <Link to="series">Séries</Link>
+          <Link to='series'>Séries</Link>
         </li>
         <li>
-          <Link to="noticias">Notícias</Link>
+          <Link to='noticias'>Notícias</Link>
         </li>
         <li>
-          <Link to="contato">Contato</Link>
+          <Link to='contato'>Contato</Link>
         </li>
         <li>
-          <Link to="sobre">Sobre</Link>
+          <Link to='sobre'>Sobre</Link>
         </li>
         <TrocarTema />
       </ul>

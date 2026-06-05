@@ -61,19 +61,13 @@ export default function ComprarIngresso() {
         const movieUrl = `${moviesURL}${id}?${apiKey}`;
         const creditsUrl = `${moviesURL}${id}/credits?${apiKey}`;
 
-        const [movieResponse, creditsResponse] = await Promise.all([
-          fetch(movieUrl),
-          fetch(creditsUrl),
-        ]);
+        const [movieResponse, creditsResponse] = await Promise.all([fetch(movieUrl), fetch(creditsUrl)]);
 
         if (!movieResponse.ok || !creditsResponse.ok) {
           throw new Error("Failed to fetch movie details");
         }
 
-        const [movieData, creditsData] = await Promise.all([
-          movieResponse.json(),
-          creditsResponse.json(),
-        ]);
+        const [movieData, creditsData] = await Promise.all([movieResponse.json(), creditsResponse.json()]);
 
         setFilme(movieData);
         setCredits(creditsData);
@@ -115,15 +109,7 @@ export default function ComprarIngresso() {
   function sendEmail(e) {
     e.preventDefault();
 
-    if (
-      name === "" ||
-      email === "" ||
-      tipoIngresso === "" ||
-      quantidade === "" ||
-      numeroCartao === "" ||
-      validade === "" ||
-      cvv === ""
-    ) {
+    if (name === "" || email === "" || tipoIngresso === "" || quantidade === "" || numeroCartao === "" || validade === "" || cvv === "") {
       alert("Nem todos os campos foram preenchidos");
       return;
     }
@@ -142,32 +128,25 @@ export default function ComprarIngresso() {
       preco: preco,
     };
 
-    emailjs
-      .send(
-        "service_hdmgwwi",
-        "template_ao8zg9a",
-        templateParams,
-        "PmD3D2WM3cQCWNZNA"
-      )
-      .then(
-        (response) => {
-          console.log("EMAIL ENVIADO", response.status, response.text);
-          setName("");
-          setEmail("");
-          setTipoIngresso("");
-          setQuantidade("");
-          setPreco("");
-          navigate("/confirmacao");
-        },
-        (err) => {
-          console.log("ERRO: ", err);
-        }
-      );
+    emailjs.send("service_hdmgwwi", "template_ao8zg9a", templateParams, "PmD3D2WM3cQCWNZNA").then(
+      (response) => {
+        console.log("EMAIL ENVIADO", response.status, response.text);
+        setName("");
+        setEmail("");
+        setTipoIngresso("");
+        setQuantidade("");
+        setPreco("");
+        navigate("/confirmacao");
+      },
+      (err) => {
+        console.log("ERRO: ", err);
+      },
+    );
   }
 
   return (
     <div
-      className="fundo"
+      className='fundo'
       style={{
         position: "relative",
         backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url(${backdropURL}${filme.backdrop_path})`,
@@ -178,80 +157,64 @@ export default function ComprarIngresso() {
         minHeight: "100vh",
         color: "white",
         padding: "20px",
-      }}
-    >
-      <div className="flex flex-row p-10 pt-4 justify-between">
-        <img
-          className="rounded h-96"
-          src={`${imagesURL}${filme.poster_path}`}
-          alt={filme.title}
-        />
-        <div className="flex flex-col justify-evenly pl-5">
+      }}>
+      <div className='flex flex-row justify-between p-10 pt-4'>
+        <img className='h-96 rounded' src={`${imagesURL}${filme.poster_path}`} alt={filme.title} />
+        <div className='flex flex-col justify-evenly pl-5'>
           <div>
-            <div className="flex gap-2">
-              <h1 className="font-bold text-3xl">{filme.title}</h1>
-              <h1 className="text-3xl">
-                {" "}
-                (
-                {filme.release_date
-                  ? new Date(filme.release_date).getFullYear()
-                  : "-"}
-                )
-              </h1>
+            <div className='flex gap-2'>
+              <h1 className='text-3xl font-bold'>{filme.title}</h1>
+              <h1 className='text-3xl'> ({filme.release_date ? new Date(filme.release_date).getFullYear() : "-"})</h1>
             </div>
 
-            <div className="flex gap-3">
+            <div className='flex gap-3'>
               <p>{formatarData(filme.release_date)} (BR)</p>
               <p>-</p>
-              <p className="text-FF">
-                {filme.genres.map((genre) => genre.name).join(", ")}
-              </p>
+              <p className='text-FF'>{filme.genres.map((genre) => genre.name).join(", ")}</p>
               <p>-</p>
               <p>{formatarRuntime(filme.runtime)}</p>
             </div>
-            <div
-              className={`h-14 w-14 mt-2 rounded-full flex justify-center items-center bg-18 border-2 ${borderColorClass}`}
-            >
-              <p className="font-semibold">{String(avaliacao)}</p>
-              <p className="font-light">%</p>
+            <div className={`mt-2 flex h-14 w-14 items-center justify-center rounded-full border-2 bg-18 ${borderColorClass}`}>
+              <p className='font-semibold'>{String(avaliacao)}</p>
+              <p className='font-light'>%</p>
             </div>
           </div>
 
           <div>
-            <p className="text-FF text-opacity-75 my-2">{filme.tagline}</p>
+            <p className='my-2 text-FF text-opacity-75'>{filme.tagline}</p>
 
-            <div className="flex gap-1 flex-col">
-              <h1 className="font-medium text-lg">Sinopse</h1>
-              <p className="font-light">{filme.overview}</p>
+            <div className='flex flex-col gap-1'>
+              <h1 className='text-lg font-medium'>Sinopse</h1>
+              <p className='font-light'>{filme.overview}</p>
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col backdrop-blur-md p-5 justify-evenly">
-          <div className="pb-3">
-            <h1 className="font-semibold">Título original</h1>
-            <p className="pl-1">{filme.original_title}</p>
+        <div className='flex flex-col justify-evenly p-5 backdrop-blur-md'>
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Título original</h1>
+            <p className='pl-1'>{filme.original_title}</p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Situação</h1>
-            <p className="pl-1">{filme.status}</p>
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Situação</h1>
+            <p className='pl-1'>{filme.status}</p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold w-28">Idioma original</h1>
-            <p className="pl-1">{filme.original_language}</p>
+          <div className='pb-3'>
+            <h1 className='w-28 font-semibold'>Idioma original</h1>
+            <p className='pl-1'>{filme.original_language}</p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Orçamento</h1>
-            <p className="pl-1">
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Orçamento</h1>
+            <p className='pl-1'>
               {filme.budget.toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
               })}
             </p>
           </div>
-          <div className="pb-3">
-            <h1 className="font-semibold">Receita</h1>
-            <p className="pl-1">
+          <div className='pb-3'>
+            <h1 className='font-semibold'>Receita</h1>
+            <p className='pl-1'>
               {filme.revenue.toLocaleString("en-US", {
                 style: "currency",
                 currency: "USD",
@@ -261,36 +224,32 @@ export default function ComprarIngresso() {
         </div>
       </div>
 
-      <div className="flex flex-row backdrop-blur-xl p-5 justify-evenly m-10 mt-0">
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Produtora(s)</h1>
-          <p className="pl-1">
-            {filme.production_companies
-              ?.map((company) => company.name)
-              .join(", ") || "N/A"}
-          </p>
+      <div className='m-10 mt-0 flex flex-row justify-evenly p-5 backdrop-blur-xl'>
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Produtora(s)</h1>
+          <p className='pl-1'>{filme.production_companies?.map((company) => company.name).join(", ") || "N/A"}</p>
         </div>
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Diretor</h1>
-          <p className="pl-1">
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Diretor</h1>
+          <p className='pl-1'>
             {credits.crew
               ?.filter((member) => member.job === "Director")
               .map((director) => director.name)
               .join(", ") || "N/A"}
           </p>
         </div>
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Roteirista(s)</h1>
-          <p className="pl-1">
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Roteirista(s)</h1>
+          <p className='pl-1'>
             {credits.crew
               ?.filter((member) => member.job === "Screenplay")
               .map((screenplay) => screenplay.name)
               .join(", ") || "N/A"}
           </p>
         </div>
-        <div className="pb-3 flex flex-col w-64">
-          <h1 className="font-semibold">Escritor</h1>
-          <p className="pl-1">
+        <div className='flex w-64 flex-col pb-3'>
+          <h1 className='font-semibold'>Escritor</h1>
+          <p className='pl-1'>
             {credits.crew
               ?.filter((member) => member.job === "Writer")
               .map((writer) => writer.name)
@@ -300,61 +259,60 @@ export default function ComprarIngresso() {
       </div>
       {credits.cast.length > 0 && <CardElenco elenco={credits.cast} />}
 
-      <div className="flex flex-col pl-14 m-5">
-        <h1 className="font-bold text-xl my-5">Comprar Ingressos</h1>
-        <form onSubmit={sendEmail} className="flex flex-row justify-between">
-          <div className="flex flex-col items-end">
-            <div className="mb-2">
+      <div className='m-5 flex flex-col pl-14'>
+        <h1 className='my-5 text-xl font-bold'>Comprar Ingressos</h1>
+        <form onSubmit={sendEmail} className='flex flex-row justify-between'>
+          <div className='flex flex-col items-end'>
+            <div className='mb-2'>
               <label>
                 Nome:
                 <input
-                  type="text"
+                  type='text'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'
                   required
                 />
               </label>
             </div>
-            <div className="mb-2">
+            <div className='mb-2'>
               <label>
                 E-mail:
                 <input
-                  type="email"
+                  type='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
-                  placeholder="exemplo@gmail.com"
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'
+                  placeholder='exemplo@gmail.com'
                   required
                 />
               </label>
             </div>
           </div>
-          <div className="flex flex-col items-end">
-            <div className="mb-2">
+          <div className='flex flex-col items-end'>
+            <div className='mb-2'>
               <label>
                 Tipo de ingresso:
                 <select
                   value={tipoIngresso}
                   onChange={(e) => setTipoIngresso(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
-                >
-                  <option value="">Selecione</option>
-                  <option value="VIP">VIP - R$75,00</option>
-                  <option value="Comum">Comum - R$50,00</option>
-                  <option value="Meia">Meia-entrada - R$25,00</option>
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'>
+                  <option value=''>Selecione</option>
+                  <option value='VIP'>VIP - R$75,00</option>
+                  <option value='Comum'>Comum - R$50,00</option>
+                  <option value='Meia'>Meia-entrada - R$25,00</option>
                 </select>
               </label>
             </div>
-            <div className="mb-2">
+            <div className='mb-2'>
               <label>
                 Quantidade:
                 <input
-                  type="number"
+                  type='number'
                   value={quantidade}
                   onChange={(e) => setQuantidade(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
-                  min="1"
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'
+                  min='1'
                 />
               </label>
             </div>
@@ -364,60 +322,56 @@ export default function ComprarIngresso() {
                 <select
                   value={idioma}
                   onChange={(e) => setIdioma(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
-                >
-                  <option value="dub">Dublado</option>
-                  <option value="leg">Legendado</option>
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'>
+                  <option value='dub'>Dublado</option>
+                  <option value='leg'>Legendado</option>
                 </select>
               </label>
             </div>
           </div>
-          <div className="flex flex-col items-end">
-            <div className="mb-2">
+          <div className='flex flex-col items-end'>
+            <div className='mb-2'>
               <label>
                 Número do cartão:
                 <input
-                  type="text"
+                  type='text'
                   value={numeroCartao}
                   onChange={(e) => setNumeroCartao(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
-                  placeholder="xxxx xxxx xxxx xxxx"
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'
+                  placeholder='xxxx xxxx xxxx xxxx'
                   required
                 />
               </label>
             </div>
-            <div className="mb-2">
+            <div className='mb-2'>
               <label>
                 Validade:
                 <input
-                  type="text"
+                  type='text'
                   value={validade}
                   onChange={(e) => setValidade(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
-                  placeholder="xx/xx"
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'
+                  placeholder='xx/xx'
                   required
                 />
               </label>
             </div>
-            <div className="mb-1">
+            <div className='mb-1'>
               <label>
                 CVV:
                 <input
-                  type="text"
+                  type='text'
                   value={cvv}
                   onChange={(e) => setCvv(e.target.value)}
-                  className="ml-2 rounded p-1 bg-FF dark:bg-26 text-26 dark:text-FF border border-[#FF5733] w-52"
-                  placeholder="xxx"
+                  className='ml-2 w-52 rounded border border-[#FF5733] bg-FF p-1 text-26 dark:bg-26 dark:text-FF'
+                  placeholder='xxx'
                   required
                 />
               </label>
             </div>
           </div>
-          <div className="flex items-end">
-            <button
-              type="submit"
-              className="bg-B0 text-FF font-medium h-10 p-1 rounded uppercase text-sm"
-            >
+          <div className='flex items-end'>
+            <button type='submit' className='h-10 rounded bg-B0 p-1 text-sm font-medium uppercase text-FF'>
               Confirmar Compra
             </button>
           </div>

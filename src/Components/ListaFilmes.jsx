@@ -57,18 +57,13 @@ export default function ListaFilmes() {
 
     const fetchPessoaProducoes = async () => {
       try {
-        const [filmesRes, seriesRes] = await Promise.all([
-          fetch(`${pessoaURL}${id}/movie_credits?${apiKey}`),
-          fetch(`${pessoaURL}${id}/tv_credits?${apiKey}`),
-        ]);
+        const [filmesRes, seriesRes] = await Promise.all([fetch(`${pessoaURL}${id}/movie_credits?${apiKey}`), fetch(`${pessoaURL}${id}/tv_credits?${apiKey}`)]);
 
         const filmesData = await filmesRes.json();
         const seriesData = await seriesRes.json();
 
         const todasProducoes = [...filmesData.cast, ...seriesData.cast];
-        const producoesOrdenadas = todasProducoes.sort(
-          (a, b) => b.popularity - a.popularity
-        );
+        const producoesOrdenadas = todasProducoes.sort((a, b) => b.popularity - a.popularity);
 
         setProducoes(producoesOrdenadas);
       } catch (error) {
@@ -83,48 +78,30 @@ export default function ListaFilmes() {
   if (!pessoa) return <div>Carregando...</div>;
 
   return (
-    <div className="px-14">
-      <div className="flex text-FF bg-B0 rounded-lg gap-5 px-20 py-4 my-3 items-center">
-        <img
-          src={
-            pessoa.profile_path
-              ? `${imagesURL}${pessoa.profile_path}`
-              : defaultImageH
-          }
-          alt={pessoa.name}
-          className="rounded h-24"
-        />
-        <div className="flex flex-col justify-center">
-          <h1 className="font-bold text-3xl">{pessoa.name}</h1>
+    <div className='px-14'>
+      <div className='my-3 flex items-center gap-5 rounded-lg bg-B0 px-20 py-4 text-FF'>
+        <img src={pessoa.profile_path ? `${imagesURL}${pessoa.profile_path}` : defaultImageH} alt={pessoa.name} className='h-24 rounded' />
+        <div className='flex flex-col justify-center'>
+          <h1 className='text-3xl font-bold'>{pessoa.name}</h1>
           <Link to={`/pessoa/${pessoa.id}`} key={pessoa.id}>
-            <p className="text-FF text-opacity-75 text-lg">← Voltar ao ator</p>
+            <p className='text-lg text-FF text-opacity-75'>← Voltar ao ator</p>
           </Link>
         </div>
       </div>
 
-      <div className="flex flex-col">
-        <div className="text-26 dark:text-FF flex flex-col justify-evenly">
-          <div className="flex justify-center">
-            <div className="grid grid-cols-8 gap-4">
+      <div className='flex flex-col'>
+        <div className='flex flex-col justify-evenly text-26 dark:text-FF'>
+          <div className='flex justify-center'>
+            <div className='grid grid-cols-8 gap-4'>
               {producoes.map((producao) => (
                 <Link key={producao.id} to={getLinkTo(producao)}>
-                  <div
-                    key={producao.id}
-                    className="text-26 dark:text-FF rounded-lg flex flex-col items-center w-36 flex-shrink-0"
-                    style={{ height: "auto" }}
-                  >
+                  <div key={producao.id} className='flex w-36 flex-shrink-0 flex-col items-center rounded-lg text-26 dark:text-FF' style={{ height: "auto" }}>
                     <img
-                      className="rounded w-36 mb-1"
-                      src={
-                        producao.poster_path
-                          ? `${imagesURL}${producao.poster_path}`
-                          : defaultImageF
-                      }
+                      className='mb-1 w-36 rounded'
+                      src={producao.poster_path ? `${imagesURL}${producao.poster_path}` : defaultImageF}
                       alt={producao.title || producao.name}
                     />
-                    <h1 className="text-center text-sm mb-1">
-                      {producao.title || producao.name}
-                    </h1>
+                    <h1 className='mb-1 text-center text-sm'>{producao.title || producao.name}</h1>
                   </div>
                 </Link>
               ))}

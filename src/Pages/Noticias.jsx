@@ -4,9 +4,7 @@ export default function Noticias() {
   return (
     <>
       <div>
-        <h1 className="text-26 dark:text-FF pl-14 font-bold text-xl mt-5">
-          Notícias Recentes
-        </h1>
+        <h1 className='mt-5 pl-14 text-xl font-bold text-26 dark:text-FF'>Notícias Recentes</h1>
 
         <CardNoticia />
       </div>
